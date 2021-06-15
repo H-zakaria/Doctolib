@@ -20,12 +20,27 @@ class Medecin
   private $id;
 
   /**
-   * @ORM\Column(type="string", length=255)
+   * @ORM\Column(type="string", length=50)
+   * @Assert\Length(
+   *      min = 3,
+   *      max = 50,
+   *      minMessage = "Votre nom doit faire au moins {{ limit }} carractères",
+   *      maxMessage = "Votre nom ne doit pas dépasser {{ limit }} carractères",
+   *      allowEmptyString = false
+   *      * )
    */
   private $nom;
 
   /**
    * @ORM\Column(type="string", length=255)
+   * @ORM\Column(type="string", length=50)
+   * @Assert\Length(
+   *      min = 3,
+   *      max = 50,
+   *      minMessage = "Votre nom doit faire au moins {{ limit }} carractères",
+   *      maxMessage = "Votre nom ne doit pas dépasser {{ limit }} carractères",
+   *      allowEmptyString = false
+   *      * )
    */
   private $prenom;
 

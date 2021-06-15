@@ -58,4 +58,21 @@ class PatientTest extends TestCase
     $Adresse = $patient->getAdresse();
     assertEquals('jp', $Adresse, 'enjfojeoijfief');
   }
+  // public function testSetRdvs()
+  // {
+  //   $patient = new Patient;
+
+  //   $patient->addRdv()
+
+  //   $Adresse = $patient->getAdresse();
+  //   assertEquals('jp', $Adresse, 'enjfojeoijfief');
+  // }
+  // public function testGetRdvs()
+  // {
+  //   $patient = new Patient;
+  //   $patient->setAdresse('jp');
+
+  //   $Adresse = $patient->getAdresse();
+  //   assertEquals('jp', $Adresse, 'enjfojeoijfief');
+  // }
 }
