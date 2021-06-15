@@ -2,8 +2,10 @@
 
 namespace App\test\Entity;
 
+use App\Entity\Medecin;
 use PHPUnit\Framework\TestCase;
 use App\Entity\Patient;
+use App\Entity\Rdv;
 
 use function PHPUnit\Framework\assertEquals;
 
@@ -16,7 +18,7 @@ class PatientTest extends TestCase
     $patient->setNom('jp');
 
     $nom = $patient->getNom();
-    assertEquals('jp', $nom, 'enjfojeoijfief');
+    assertEquals('jp', $nom, 'setNom marche pas');
   }
   public function testGetNom()
   {
@@ -24,7 +26,7 @@ class PatientTest extends TestCase
     $patient->setNom('jp');
 
     $nom = $patient->getNom();
-    assertEquals('jp', $nom, 'enjfojeoijfief');
+    assertEquals('jp', $nom, 'getNom marche pas');
   }
   public function testSetPrenom()
   {
@@ -32,7 +34,7 @@ class PatientTest extends TestCase
     $patient->setPrenom('jp');
 
     $Prenom = $patient->getPrenom();
-    assertEquals('jp', $Prenom, 'enjfojeoijfief');
+    assertEquals('jp', $Prenom, 'setPrenom marche pas');
   }
   public function testGetPrenom()
   {
@@ -40,39 +42,65 @@ class PatientTest extends TestCase
     $patient->setPrenom('jp');
 
     $Prenom = $patient->getPrenom();
-    assertEquals('jp', $Prenom, 'enjfojeoijfief');
+    assertEquals('jp', $Prenom, 'getPrenom marche pas');
   }
-  public function testSetAdresse()
+  public function testSetRue()
   {
     $patient = new Patient;
-    $patient->setAdresse('jp');
 
-    $Adresse = $patient->getAdresse();
-    assertEquals('jp', $Adresse, 'enjfojeoijfief');
+    $patient->setRue('touraine');
+
+    $rue = $patient->getRue();
+    assertEquals('touraine', $rue, 'setRue ne marche pas');
   }
-  public function testGetAdresse()
+  public function testGetRue()
   {
     $patient = new Patient;
-    $patient->setAdresse('jp');
+    $patient->setRue('touraine');
 
-    $Adresse = $patient->getAdresse();
-    assertEquals('jp', $Adresse, 'enjfojeoijfief');
+    $rue = $patient->getRue();
+    assertEquals('touraine', $rue, 'getRue ne marche pas');
   }
-  // public function testSetRdvs()
-  // {
-  //   $patient = new Patient;
+  public function testAddRDV()
+  {
+    $rdv = new Rdv();
+    $toubib = new Medecin();
+    $toubib->setNom('roberto');
+    $rdv->setMedecin($toubib);
+    $pat = new Patient();
+    $pat->addRdv($rdv);
+    $rdvs = $pat->getRdvs();
 
-  //   $patient->addRdv()
+    assertEquals('roberto', $rdvs[0]->getMedecin()->getNom(), 'addRDV ne marche pas');
+  }
+  public function testRemoveRDV()
+  {
+    $rdv = new Rdv();
+    $toubib = new Medecin();
+    $toubib->setNom('roberto');
+    $rdv->setMedecin($toubib);
+    $pat = new Patient();
+    $pat->addRdv($rdv);
+    $rdvs = $pat->getRdvs();
+    $pat->removeRdv($rdv); //ça marche
+    assertEquals('roberto', $rdvs[0]->getMedecin()->getNom(), '');
+  }
+  public function testSetVille()
+  {
+    $patient = new Patient;
 
-  //   $Adresse = $patient->getAdresse();
-  //   assertEquals('jp', $Adresse, 'enjfojeoijfief');
-  // }
-  // public function testGetRdvs()
-  // {
-  //   $patient = new Patient;
-  //   $patient->setAdresse('jp');
+    $patient->setVille('tours');
 
-  //   $Adresse = $patient->getAdresse();
-  //   assertEquals('jp', $Adresse, 'enjfojeoijfief');
-  // }
+    $ville = $patient->getVille();
+    assertEquals('tours', $ville, 'setVille ne marche pas');
+  }
+  public function testGetVille()
+  {
+    $patient = new Patient;
+
+    $patient->setVille('tours');
+
+    $ville = $patient->getVille();
+    assertEquals('tours', $ville, 'getVille ne marche pas');
+  }
 }
