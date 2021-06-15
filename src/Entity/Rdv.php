@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RdvRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RdvRepository::class)
@@ -53,25 +54,25 @@ class Rdv
 
   public function getPatient(): ?Patient
   {
-      return $this->patient;
+    return $this->patient;
   }
 
   public function setPatient(?Patient $patient): self
   {
-      $this->patient = $patient;
+    $this->patient = $patient;
 
-      return $this;
+    return $this;
   }
 
   public function getMedecin(): ?Medecin
   {
-      return $this->medecin;
+    return $this->medecin;
   }
 
   public function setMedecin(?Medecin $medecin): self
   {
-      $this->medecin = $medecin;
+    $this->medecin = $medecin;
 
-      return $this;
+    return $this;
   }
 }
