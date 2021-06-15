@@ -12,106 +12,188 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Patient
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+  /**
+   * @ORM\Id
+   * @ORM\GeneratedValue
+   * @ORM\Column(type="integer")
+   */
+  private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
+  /**
+   * @ORM\Column(type="string", length=50)
+   * @Assert\Length(
+   *      min = 2,
+   *      max = 50,
+   *      minMessage = "Votre nom doit faire au moins {{ limit }} carractères",
+   *      maxMessage = "Votre nom ne doit pas dépasser {{ limit }} carractères",
+   *      allowEmptyString = false
+   *      * )
+   * @Assert\Regex(
+   *     pattern="/\d/",
+   *     match=false,
+   *     message="Votre nom ne peut pas contenir de chiffre"
+   * )
+   * @Assert\NotNull;
+   */
+  private $nom;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
+  /**
+   * @ORM\Column(type="string", length=50)
+   * @Assert\Length(
+   *      min = 2,
+   *      max = 50,
+   *      minMessage = "Votre prenom doit faire au moins {{ limit }} carractères",
+   *      maxMessage = "Votre prenom ne doit pas dépasser {{ limit }} carractères",
+   *      allowEmptyString = false
+   *      * )
+   * @Assert\Regex(
+   *     pattern="/\d/",
+   *     match=false,
+   *     message="Votre prenom ne peut pas contenir de chiffre"
+   * )
+   * @Assert\NotNull;
+   */
+  private $prenom;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $adresse;
+  /**
+   * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="patient", orphanRemoval=true)
+   */
+  private $rdvs;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="patient", orphanRemoval=true)
-     */
-    private $rdvs;
+  /**
+   * @ORM\Column(type="string", length=70)
+   * @Assert\Length(
+   *      min = 2,
+   *      max = 70,
+   *      minMessage = "Le nom de la ville doit faire au moins {{ limit }} carractères",
+   *      maxMessage = "Le nom de la ville ne doit pas dépasser {{ limit }} carractères",
+   *      allowEmptyString = false
+   *      * )
+   * @Assert\Regex(
+   *     pattern="/\d/",
+   *     match=false,
+   *     message="Votre ville ne peut pas contenir de chiffre"
+   *     * )
+   * @Assert\NotNull;
+   */
+  private $ville;
 
-    public function __construct()
-    {
-        $this->rdvs = new ArrayCollection();
+  /**
+   * @ORM\Column(type="string", length=255)
+   * @Assert\Length(
+   *      min = 2,
+   *      max = 255,
+   *      minMessage = "Le nom de la rue doit faire au moins {{ limit }} carractères",
+   *      maxMessage = "Le nom de la rue ne doit pas dépasser {{ limit }} carractères",
+   *      allowEmptyString = false
+   *      * )
+   * @Assert\NotNull;
+   */
+  private $rue;
+
+  /**
+   * @ORM\Column(type="date")
+   * @Assert\NotNull;
+   */
+  private $date_naissance;
+
+  public function __construct()
+  {
+    $this->rdvs = new ArrayCollection();
+  }
+
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
+
+  public function getNom(): ?string
+  {
+    return $this->nom;
+  }
+
+  public function setNom(string $nom): self
+  {
+    $this->nom = $nom;
+
+    return $this;
+  }
+
+  public function getPrenom(): ?string
+  {
+    return $this->prenom;
+  }
+
+  public function setPrenom(string $prenom): self
+  {
+    $this->prenom = $prenom;
+
+    return $this;
+  }
+
+  /**
+   * @return Collection|Rdv[]
+   */
+  public function getRdvs(): Collection
+  {
+    return $this->rdvs;
+  }
+
+  public function addRdv(Rdv $rdv): self
+  {
+    if (!$this->rdvs->contains($rdv)) {
+      $this->rdvs[] = $rdv;
+      $rdv->setPatient($this);
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
+    return $this;
+  }
+
+  public function removeRdv(Rdv $rdv): self
+  {
+    if ($this->rdvs->removeElement($rdv)) {
+      // set the owning side to null (unless already changed)
+      if ($rdv->getPatient() === $this) {
+        $rdv->setPatient(null);
+      }
     }
 
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
+    return $this;
+  }
 
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
+  public function getVille(): ?string
+  {
+    return $this->ville;
+  }
 
-        return $this;
-    }
+  public function setVille(string $ville): self
+  {
+    $this->ville = $ville;
 
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
+    return $this;
+  }
 
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
+  public function getRue(): ?string
+  {
+    return $this->rue;
+  }
 
-        return $this;
-    }
+  public function setRue(string $rue): self
+  {
+    $this->rue = $rue;
 
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
+    return $this;
+  }
 
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
+  public function getDateNaissance(): ?\DateTimeInterface
+  {
+    return $this->date_naissance;
+  }
 
-        return $this;
-    }
+  public function setDateNaissance(\DateTimeInterface $date_naissance): self
+  {
+    $this->date_naissance = $date_naissance;
 
-    /**
-     * @return Collection|Rdv[]
-     */
-    public function getRdvs(): Collection
-    {
-        return $this->rdvs;
-    }
-
-    public function addRdv(Rdv $rdv): self
-    {
-        if (!$this->rdvs->contains($rdv)) {
-            $this->rdvs[] = $rdv;
-            $rdv->setPatient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRdv(Rdv $rdv): self
-    {
-        if ($this->rdvs->removeElement($rdv)) {
-            // set the owning side to null (unless already changed)
-            if ($rdv->getPatient() === $this) {
-                $rdv->setPatient(null);
-            }
-        }
-
-        return $this;
-    }
+    return $this;
+  }
 }

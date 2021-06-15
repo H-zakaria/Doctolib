@@ -22,35 +22,46 @@ class Medecin
   /**
    * @ORM\Column(type="string", length=50)
    * @Assert\Length(
-   *      min = 3,
+   *      min = 2,
    *      max = 50,
    *      minMessage = "Votre nom doit faire au moins {{ limit }} carractères",
    *      maxMessage = "Votre nom ne doit pas dépasser {{ limit }} carractères",
    *      allowEmptyString = false
    *      * )
+   * @Assert\Regex(
+   *     pattern="/\d/",
+   *     match=false,
+   *     message="Votre nom ne peut pas contenir de chiffre"
+   *     * )
    */
   private $nom;
 
   /**
-   * @ORM\Column(type="string", length=255)
    * @ORM\Column(type="string", length=50)
    * @Assert\Length(
-   *      min = 3,
+   *      min = 2,
    *      max = 50,
-   *      minMessage = "Votre nom doit faire au moins {{ limit }} carractères",
-   *      maxMessage = "Votre nom ne doit pas dépasser {{ limit }} carractères",
+   *      minMessage = "Votre prenom doit faire au moins {{ limit }} carractères",
+   *      maxMessage = "Votre prenom ne doit pas dépasser {{ limit }} carractères",
    *      allowEmptyString = false
    *      * )
+   * @Assert\Regex(
+   *     pattern="/\d/",
+   *     match=false,
+   *     message="Votre prenom ne peut pas contenir de chiffre"
+   *     * )
    */
   private $prenom;
 
   /**
    * @ORM\ManyToMany(targetEntity=Specialite::class, mappedBy="medecins")
+   * @Assert\NotNull;
    */
   private $specialites;
 
   /**
    * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="medecin", orphanRemoval=true)
+   * @Assert\NotNull;
    */
   private $rdvs;
 
