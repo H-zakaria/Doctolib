@@ -82,9 +82,10 @@ class PatientTest extends KernelTestCase
     $rdv->setMedecin($toubib);
     $pat = new Patient();
     $pat->addRdv($rdv);
-    $rdvs = $pat->getRdvs();
-    $pat->removeRdv($rdv); //ça marche
-    assertEquals('roberto', $rdvs[0]->getMedecin()->getNom(), '');
+    if (!$pat->getRdvs()->isEmpty()) {
+      $pat->removeRdv($rdv);
+      $this->assertNull($pat->getRdvs()[0], 'removeRdv marche pas');
+    }
   }
   public function testSetVille()
   {
