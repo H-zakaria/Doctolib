@@ -3,50 +3,50 @@
 namespace App\test\Repository;
 
 use App\DataFixtures\AppFixtures;
-use App\Repository\PatientRepository;
+use App\Repository\MedecinRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 
-class PatientRepositoryTest extends KernelTestCase
+class MedecinRepositoryTest extends KernelTestCase
 {
     use FixturesTrait;
 
     public function testFind()
     {
         self::bootKernel();
-        $repository = self::$container->get(PatientRepository::class);
+        $repository = self::$container->get(MedecinRepository::class);
         $this->loadFixtures([AppFixtures::class]);
-        $patient = $repository->find(1);
-        $this->assertIsObject($patient, 'testFind pb');
-        $this->assertEquals(1, $patient->getId(), 'testFind pb assertEquals');
+        $Medecin = $repository->find(1);
+        $this->assertIsObject($Medecin, 'testFind pb');
+        $this->assertEquals(1, $Medecin->getId(), 'testFind pb assertEquals');
     }
 
     public function testFindAll()
     {
         self::bootKernel();                                                                     // va permettre d'acceder au container (qui contient nos classes)
-        $repository = self::$container->get(PatientRepository::class);
+        $repository = self::$container->get(MedecinRepository::class);
         $this->loadFixtures([AppFixtures::class]);                                              //purge et inserre les data de test
-        $patients = $repository->findAll();
-        $this->assertCount(5, $patients);
+        $Medecins = $repository->findAll();
+        $this->assertCount(5, $Medecins);
     }
 
     public function testFindOneBy()
     {
         self::bootKernel();
-        $repository = self::$container->get(PatientRepository::class);
+        $repository = self::$container->get(MedecinRepository::class);
         $this->loadFixtures([AppFixtures::class]);
-        $patient = $repository->findOneBy(['id' => 1]);
-        $this->assertIsObject($patient, 'testFindOneBy pb');
-        $this->assertEquals(1, $patient->getId(), 'testFindOneBy pb assertEquals');
+        $Medecin = $repository->findOneBy(['id' => 1]);
+        $this->assertIsObject($Medecin, 'testFindOneBy pb');
+        $this->assertEquals(1, $Medecin->getId(), 'testFindOneBy pb assertEquals');
     }
 
 
     public function testFindBy()
     {
         self::bootKernel();
-        $repository = self::$container->get(PatientRepository::class);
+        $repository = self::$container->get(MedecinRepository::class);
         $this->loadFixtures([AppFixtures::class]);
-        $patients = $repository->findBy(['nom' => 'jj']);
-        $this->assertCount(5, $patients, 'pb testFindBy');
+        $Medecins = $repository->findBy(['nom' => 'jj']);
+        $this->assertCount(5, $Medecins, 'pb testFindBy');
     }
 }
