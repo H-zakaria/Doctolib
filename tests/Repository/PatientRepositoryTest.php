@@ -7,14 +7,35 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class PatientRepositoryTest extends KernelTestCase
 {
+    // public function testFind()
+    // {
+    //     self::bootKernel();
+    //     $repository = self::$container->get(PatientRepository::class);
+    //     $patients = $repository->find();
+    //     $this->assertCount(0, $patients);
+    // }
 
-    public function testFindAll()
-    {
-        self::bootKernel();
-        $repository = self::$container->get(PatientRepository::class);
+    // public function testFindOneBy()
+    // {
+    //     self::bootKernel();
+    //     $repository = self::$container->get(PatientRepository::class);
+    //     $patients = $repository->findOneBy();
+    //     $this->assertCount(0, $patients);
+    // }
 
-        $patients = $repository->findAll();
+    // public function testFindAll()
+    // {
+    //     self::bootKernel();
+    //     $repository = self::$container->get(PatientRepository::class);
+    //     $patients = $repository->findAll();
+    //     $this->assertCount(0, $patients);
+    // }
 
-        $this->assertCount(0, $patients);
-    }
+    // public function testFindBy()
+    // {
+    //     self::bootKernel();
+    //     $repository = self::$container->get(PatientRepository::class);
+    //     $patients = $repository->findBy();
+    //     $this->assertCount(0, $patients);
+    // }
 }
