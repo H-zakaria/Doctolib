@@ -6,6 +6,7 @@ use App\Entity\Rdv;
 use App\Entity\Medecin;
 use App\Entity\Patient;
 use App\Entity\Specialite;
+use App\Entity\Etablissement;
 use function PHPUnit\Framework\assertEquals;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -89,7 +90,10 @@ class MedecinTest extends KernelTestCase
     $toubib->addRdv($rdv);
     $rdvs = $toubib->getRdvs();
 
-    assertEquals('roberto', $rdvs[0]->getPatient()->getNom(), 'addRDV ne marche pas');
+    if (!$toubib->getRdvs()->isEmpty()) {
+      $toubib->removeRdv($rdv);
+      $this->assertNull($toubib->getRdvs()[0], 'removeRdv marche pas');
+    }
   }
 
   public function testAddSpecialite()
@@ -117,5 +121,30 @@ class MedecinTest extends KernelTestCase
     $toubib->addSpecialite($spe);
     $toubib->removeSpecialite($spe);
     $this->assertNull($toubib->getSpecialites()[0], 'removeSpecialite marche pas');
+  }
+  public function testAddEtablissement()
+  {
+    $etablissement = new Etablissement();
+    $toubib = new Medecin();
+    $toubib->addEtablissement($etablissement);
+
+    $this->assertNotNull($toubib->getEtablissements()[0], 'addEtablissement  marche pas');
+  }
+  public function testGetEtablissements()
+  {
+   
+    $etablissement = new Etablissement();
+    $toubib = new Medecin();
+    $toubib->addEtablissement($etablissement);
+
+    $this->assertNotNull($toubib->getEtablissements()[0], ('getEtablissement marche pas'));
+  }
+  public function testRemoveEtablissements()
+  {
+    $etablissement = new Etablissement();
+    $toubib = new Medecin();
+    $toubib->addEtablissement($etablissement);
+    $toubib->removeEtablissement($etablissement);
+    $this->assertNull($toubib->getEtablissements()[0], 'getEtablissement marche pas');
   }
 }
