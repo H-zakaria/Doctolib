@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class MedecinTest extends KernelTestCase
 {
-
   public function testMedecinIsInvalid()
   {
     $kernel = self::bootKernel();
@@ -132,7 +131,7 @@ class MedecinTest extends KernelTestCase
   }
   public function testGetEtablissements()
   {
-   
+
     $etablissement = new Etablissement();
     $toubib = new Medecin();
     $toubib->addEtablissement($etablissement);

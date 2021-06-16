@@ -11,6 +11,34 @@ use function PHPUnit\Framework\assertEquals;
 
 class PatientTest extends KernelTestCase
 {
+  public function testPatientIsInvalid()
+  {
+    $kernel = self::bootKernel();
+    $validator = $kernel->getContainer()->get('validator');
+    $patient = new Patient();
+    $patient->setNom("j")
+      ->setPrenom("p")
+      ->setVille("a")
+      ->setRue("z");
+    $errors = $validator->validate($patient);
+
+    $this->assertCount(5, $errors, "Une erreur est attendue car moins de 2 chars");
+  }
+
+  public function testPatientIsValid()
+  {
+    $kernel = self::bootKernel();
+    $validator = $kernel->getContainer()->get('validator');
+    $patient = new Patient();
+    $patient->setNom("jean")
+      ->setPrenom("patrick")
+      ->setVille("azerty")
+      ->setRue("zoum")
+      ->setDateNaissance(new DateTime("now"));
+    $errors = $validator->validate($patient);
+
+    $this->assertCount(0, $errors, "Une erreur est attendue car plus de 2 chars");
+  }
 
   public function testSetNom()
   {
@@ -104,34 +132,5 @@ class PatientTest extends KernelTestCase
 
     $ville = $patient->getVille();
     assertEquals('tours', $ville, 'getVille ne marche pas');
-  }
-
-  public function testPatientIsInvalid()
-  {
-    $kernel = self::bootKernel();
-    $validator = $kernel->getContainer()->get('validator');
-    $patient = new Patient();
-    $patient->setNom("j")
-      ->setPrenom("p")
-      ->setVille("a")
-      ->setRue("z");
-    $errors = $validator->validate($patient);
-
-    $this->assertCount(5, $errors, "Une erreur est attendue car moins de 2 chars");
-  }
-
-  public function testPatientIsValid()
-  {
-    $kernel = self::bootKernel();
-    $validator = $kernel->getContainer()->get('validator');
-    $patient = new Patient();
-    $patient->setNom("jean")
-      ->setPrenom("patrick")
-      ->setVille("azerty")
-      ->setRue("zoum")
-      ->setDateNaissance(new DateTime("now"));
-    $errors = $validator->validate($patient);
-
-    $this->assertCount(0, $errors, "Une erreur est attendue car plus de 2 chars");
   }
 }

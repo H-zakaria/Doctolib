@@ -11,18 +11,17 @@ use function PHPUnit\Framework\assertNull;
 
 class EtablissementTest extends KernelTestCase
 {
-
   public function testEtablissementIsInvalid()
   {
     $kernel = self::bootKernel();
     $validator = $kernel->getContainer()->get('validator');
     $Etablissement = new Etablissement();
     $Etablissement->setNom("j")
-      ->setVille("p")
+      ->setVille("p1")
       ->setRue("a");
     $errors = $validator->validate($Etablissement);
 
-    $this->assertCount(3, $errors, "Une erreur est attendue car moins de 2 chars");
+    $this->assertCount(3, $errors, "Une erreur est attendue car moins de 2 chars et un chiffre dans la ville");
   }
 
   public function testEtablissementIsValid()
@@ -38,7 +37,7 @@ class EtablissementTest extends KernelTestCase
     $this->assertCount(0, $errors, "Une erreur est attendue car plus de 2 chars");
   }
 
-  
+
   public function testSetGetNom()
   {
     $et = new Etablissement;
@@ -46,7 +45,7 @@ class EtablissementTest extends KernelTestCase
     assertEquals('n', $et->getNom(), 'set/getNom pb');
   }
 
- 
+
   public function testGetMedecins()
   {
     $et = new Etablissement;
@@ -69,7 +68,7 @@ class EtablissementTest extends KernelTestCase
     $et = new Etablissement;
     $m = new Medecin;
     $et->addMedecin($m);
-    if(!$et->getMedecins()->isEmpty()){
+    if (!$et->getMedecins()->isEmpty()) {
       $et->removeMedecin($m);
       assertNull($et->getMedecins());
     }
