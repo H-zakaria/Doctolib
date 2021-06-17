@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace APP\Entity;
 
 use App\Repository\PatientRepository;
+use APP\Service\PatientService;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,6 +18,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Patient
 {
+  private $service;
+
+
+
   /**
    * @ORM\Id
    * @ORM\GeneratedValue
@@ -116,10 +122,6 @@ class Patient
    */
   private $tel;
 
-  public function __construct()
-  {
-    $this->rdvs = new ArrayCollection();
-  }
 
   public function getId(): ?int
   {
@@ -149,7 +151,10 @@ class Patient
 
     return $this;
   }
-
+  public function __construct()
+  {
+    $this->rdvs = new ArrayCollection();
+  }
   /**
    * @return Collection|Rdv[]
    */
@@ -224,7 +229,6 @@ class Patient
   public function setMail(string $mail): self
   {
     $this->mail = $mail;
-
     return $this;
   }
 
@@ -250,5 +254,12 @@ class Patient
     $this->tel = $tel;
 
     return $this;
+  }
+
+  public function prendreRdv(Praticien $praticien, DateTime $dateTime)
+  {
+    $rdv = new Rdv();
+    $rdv->setPraticien($praticien)->setDateTime($dateTime)->setPatient($this);
+    $this->addRdv($rdv);
   }
 }
