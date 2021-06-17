@@ -40,12 +40,18 @@ class EtablissementTest extends KernelTestCase
     $this->assertCount(0, $errors, "Une erreur est attendue car plus de 2 chars");
   }
 
-
-  public function testSetGetNom()
+  public function testSetNom()
   {
     $et = new Etablissement;
     $et->setNom('n');
-    assertEquals('n', $et->getNom(), 'set/getNom pb');
+    assertEquals('n', $et->getNom(), 'setNom ne marche pas');
+  }
+
+  public function testGetNom()
+  {
+    $et = new Etablissement;
+    $et->setNom('n');
+    assertEquals('n', $et->getNom(), 'getNom ne marche pas');
   }
 
 
@@ -76,25 +82,31 @@ class EtablissementTest extends KernelTestCase
     assertCount(0, $et->getPraticiens());
   }
 
-  public function testSetGetVille()
+  public function testSetVille()
   {
     $et = new Etablissement;
     $et->setVille("tours");
-    assertEquals('tours', $et->getVille());
+    assertEquals('tours', $et->getVille(), 'setVille ne marche pas');
   }
 
+  public function testGetVille()
+  {
+    $et = new Etablissement;
+    $et->setVille("tours");
+    assertEquals('tours', $et->getVille(), 'getVille ne marche pas');
+  }
 
-  public function testSetGetRue()
+  public function testSetRue()
   {
     $et = new Etablissement;
     $et->setRue("tours");
-    assertEquals('tours', $et->getRue());
+    assertEquals('tours', $et->getRue(), 'setRue ne marche pas');
   }
 
-  public function setRue(string $rue): self
+  public function testGetRue()
   {
-    $this->rue = $rue;
-
-    return $this;
+    $et = new Etablissement;
+    $et->setRue("tours");
+    assertEquals('tours', $et->getRue(), 'getRue ne marche pas');
   }
 }

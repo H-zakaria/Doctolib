@@ -27,4 +27,64 @@ class RdvTest extends KernelTestCase
 
         $this->assertCount(0, $errors, "Une erreur est attendue car objets inexistants");
     }
+
+    public function testSetDateTime()
+    {
+        $rdv = new Rdv;
+        $date = new \DateTime("2018-05-01 00:00:00");
+        $rdv->setDateTime($date);
+
+        $datetime = $rdv->getDateTime();
+        assertEquals($date, $datetime, 'setDateTime ne marche pas');
+    }
+
+    public function testGetDateTime()
+    {
+        $rdv = new Rdv;
+        $date = new \DateTime("2018-05-01 00:00:00");
+        $rdv->setDateTime($date);
+
+        $datetime = $rdv->getDateTime();
+        assertEquals($date, $datetime, 'getDateTime ne marche pas');
+    }
+
+    public function testSetPatient()
+    {
+        $rdv = new Rdv;
+        $patient = new Patient();
+        $rdv->setPatient($patient);
+
+        $getPatient = $rdv->getPatient();
+        assertEquals($patient, $getPatient, 'setPatient ne marche pas');
+    }
+
+    public function testGetPatient()
+    {
+        $rdv = new Rdv;
+        $patient = new Patient();
+        $rdv->setPatient($patient);
+
+        $getPatient = $rdv->getPatient();
+        assertEquals($patient, $getPatient, 'getPatient ne marche pas');
+    }
+
+    public function testSetPraticien()
+    {
+        $rdv = new Rdv;
+        $praticien = new Praticien();
+        $rdv->setPraticien($praticien);
+
+        $getPraticien = $rdv->getPraticien();
+        assertEquals($praticien, $getPraticien, 'setPraticien ne marche pas');
+    }
+
+    public function testGetPraticien()
+    {
+        $rdv = new Rdv;
+        $praticien = new Praticien();
+        $rdv->setPraticien($praticien);
+
+        $getPraticien = $rdv->getPraticien();
+        assertEquals($praticien, $getPraticien, 'getPraticien ne marche pas');
+    }
 }

@@ -18,7 +18,7 @@ class AppFixtures extends Fixture
         // creation 5 patients, specialité, Praticiens, etablissements, rdv
         for ($i = 0; $i < 5; $i++) {
             $patient =   new Patient();
-            $patient->setNom('jj')->setPrenom($i)->setRue('zdzd')->setVille('efe')->setDateNaissance(new DateTime('now'))->setMdp('mdp')->setMail('asiasij');
+            $patient->setNom('jj')->setPrenom($i)->setRue('zdzd')->setVille('efe')->setDateNaissance(new DateTime('now'))->setMdp('mdp')->setMail('asiasij')->setTel('0612345678');
             $manager->persist($patient);
 
             $spe = new Specialite;
@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
             $et->setRue('ashsdzdzu');
             $manager->persist($et);
             $med =   new Praticien();
-            $med->setNom('jj')->setPrenom($i)->addEtablissement($et)->addSpecialite($spe)->setMdp('mdp')->setMail('asiasij');
+            $med->setNom('jj')->setPrenom($i)->addEtablissement($et)->addSpecialite($spe)->setMdp('mdp')->setMail('asiasij')->setTel('0612345678');
             $spe->addPraticien($med);
             $manager->persist($spe);
             $manager->persist($med);

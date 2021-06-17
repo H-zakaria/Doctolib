@@ -18,7 +18,10 @@ class PraticienTest extends KernelTestCase
     $validator = $kernel->getContainer()->get('validator');
     $Praticien = new Praticien();
     $Praticien->setNom("j")
-      ->setPrenom("p");
+      ->setPrenom("p")
+      ->setMail("a")
+      ->setMdp("a")
+      ->setTel("6");
     $errors = $validator->validate($Praticien);
 
     $this->assertCount(2, $errors, "Une erreur est attendue car moins de 2 chars");
@@ -30,11 +33,15 @@ class PraticienTest extends KernelTestCase
     $validator = $kernel->getContainer()->get('validator');
     $Praticien = new Praticien();
     $Praticien->setNom("jean")
-      ->setPrenom("patrick");
+      ->setPrenom("patrick")
+      ->setMail("a")
+      ->setMdp("a")
+      ->setTel("6");
     $errors = $validator->validate($Praticien);
 
     $this->assertCount(0, $errors, "Une erreur est attendue car plus de 2 chars");
   }
+
   public function testSetNom()
   {
     $Praticien = new Praticien;
@@ -43,6 +50,7 @@ class PraticienTest extends KernelTestCase
     $nom = $Praticien->getNom();
     assertEquals('jp', $nom, 'setNom marche pas');
   }
+
   public function testGetNom()
   {
     $Praticien = new Praticien;
@@ -51,6 +59,7 @@ class PraticienTest extends KernelTestCase
     $nom = $Praticien->getNom();
     assertEquals('jp', $nom, 'getNom marche pas');
   }
+
   public function testSetPrenom()
   {
     $Praticien = new Praticien;
@@ -59,6 +68,7 @@ class PraticienTest extends KernelTestCase
     $Prenom = $Praticien->getPrenom();
     assertEquals('jp', $Prenom, 'setPrenom marche pas');
   }
+
   public function testGetPrenom()
   {
     $Praticien = new Praticien;
@@ -67,7 +77,8 @@ class PraticienTest extends KernelTestCase
     $Prenom = $Praticien->getPrenom();
     assertEquals('jp', $Prenom, 'getPrenom marche pas');
   }
-  public function testAddRDV()
+
+  public function testGetRdvs()
   {
     $rdv = new Rdv();
     $toubib = new Praticien();
@@ -79,7 +90,21 @@ class PraticienTest extends KernelTestCase
 
     assertEquals('roberto', $rdvs[0]->getPatient()->getNom(), 'addRDV ne marche pas');
   }
-  public function testRemoveRDV()
+
+  public function testAddRdv()
+  {
+    $rdv = new Rdv();
+    $toubib = new Praticien();
+    $pat = new Patient();
+    $pat->setNom('roberto');
+    $rdv->setPatient($pat);
+    $toubib->addRdv($rdv);
+    $rdvs = $toubib->getRdvs();
+
+    assertEquals('roberto', $rdvs[0]->getPatient()->getNom(), 'addRDV ne marche pas');
+  }
+
+  public function testRemoveRdv()
   {
     $rdv = new Rdv();
     $toubib = new Praticien();
@@ -104,14 +129,17 @@ class PraticienTest extends KernelTestCase
 
     assertEquals('cardiologie', $toubib->getSpecialites()[0]->getDesignation());
   }
+
   public function testGetSpecialite()
   {
     $spe = new Specialite();
     $toubib = new Praticien();
     $spe->setDesignation('cardiologie');
     $toubib->addSpecialite($spe);
+
     assertEquals('cardiologie', $toubib->getSpecialites()[0]->getDesignation());
   }
+
   public function testRemoveSpecialite()
   {
     $spe = new Specialite();
@@ -121,6 +149,7 @@ class PraticienTest extends KernelTestCase
     $toubib->removeSpecialite($spe);
     $this->assertNull($toubib->getSpecialites()[0], 'removeSpecialite marche pas');
   }
+
   public function testAddEtablissement()
   {
     $etablissement = new Etablissement();
@@ -129,6 +158,7 @@ class PraticienTest extends KernelTestCase
 
     $this->assertNotNull($toubib->getEtablissements()[0], 'addEtablissement  marche pas');
   }
+
   public function testGetEtablissements()
   {
 
@@ -138,6 +168,7 @@ class PraticienTest extends KernelTestCase
 
     $this->assertNotNull($toubib->getEtablissements()[0], ('getEtablissement marche pas'));
   }
+
   public function testRemoveEtablissements()
   {
     $etablissement = new Etablissement();
@@ -145,5 +176,59 @@ class PraticienTest extends KernelTestCase
     $toubib->addEtablissement($etablissement);
     $toubib->removeEtablissement($etablissement);
     $this->assertNull($toubib->getEtablissements()[0], 'getEtablissement marche pas');
+  }
+
+  public function testGetMail()
+  {
+    $Praticien = new Praticien;
+    $Praticien->setMail('jp@mail.com');
+
+    $mail = $Praticien->getMail();
+    assertEquals('jp@mail.com', $mail, 'setMail marche pas');
+  }
+
+  public function testSetMail()
+  {
+    $Praticien = new Praticien;
+    $Praticien->setMail('jp@mail.com');
+
+    $mail = $Praticien->getMail();
+    assertEquals('jp@mail.com', $mail, 'setMail marche pas');
+  }
+
+  public function testGetMdp()
+  {
+    $Praticien = new Praticien;
+    $Praticien->setMdp('motdepasse');
+
+    $mdp = $Praticien->getMdp();
+    assertEquals('motdepasse', $mdp, 'setMdp marche pas');
+  }
+
+  public function testSetMdp()
+  {
+    $Praticien = new Praticien;
+    $Praticien->setMdp('motdepasse');
+
+    $mdp = $Praticien->getMdp();
+    assertEquals('motdepasse', $mdp, 'setMdp marche pas');
+  }
+
+  public function testGetTel()
+  {
+    $Praticien = new Praticien;
+    $Praticien->setTel('0612345678');
+
+    $tel = $Praticien->getTel();
+    assertEquals('0612345678', $tel, 'setTel marche pas');
+  }
+
+  public function testSetTel()
+  {
+    $Praticien = new Praticien;
+    $Praticien->setTel('0612345678');
+
+    $tel = $Praticien->getTel();
+    assertEquals('0612345678', $tel, 'setTel marche pas');
   }
 }
