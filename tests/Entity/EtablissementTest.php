@@ -3,7 +3,7 @@
 namespace App\test\Entity;
 
 use App\Entity\Etablissement;
-use App\Entity\Medecin;
+use App\Entity\Praticien;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 use function PHPUnit\Framework\assertEmpty;
@@ -49,31 +49,31 @@ class EtablissementTest extends KernelTestCase
   }
 
 
-  public function testGetMedecins()
+  public function testGetPraticiens()
   {
     $et = new Etablissement;
-    $m = new Medecin;
+    $m = new Praticien;
     $m->setNom('a');
-    $et->addMedecin($m);
-    assertEquals('a', $et->getMedecins()[0]->getNom(), 'getMedecins pb');
+    $et->addPraticien($m);
+    assertEquals('a', $et->getPraticiens()[0]->getNom(), 'getPraticiens pb');
   }
 
-  public function testAddMedecin()
+  public function testAddPraticien()
   {
     $et = new Etablissement;
-    $m = new Medecin;
-    $et->addMedecin($m);
-    assertNotNull($et->getMedecins(), 'addMedecins pb');
+    $m = new Praticien;
+    $et->addPraticien($m);
+    assertNotNull($et->getPraticiens(), 'addPraticiens pb');
   }
 
-  public function testRemoveMedecin()
+  public function testRemovePraticien()
   {
     $et = new Etablissement;
-    $m = new Medecin;
+    $m = new Praticien;
     $m->setNom('fred');
-    $et->addMedecin($m);
-    $et->removeMedecin($m);
-    assertCount(0, $et->getMedecins());
+    $et->addPraticien($m);
+    $et->removePraticien($m);
+    assertCount(0, $et->getPraticiens());
   }
 
   public function testSetGetVille()

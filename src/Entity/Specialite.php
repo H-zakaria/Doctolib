@@ -35,13 +35,13 @@ class Specialite
   private $designation;
 
   /**
-   * @ORM\ManyToMany(targetEntity=Medecin::class, inversedBy="specialites")
+   * @ORM\ManyToMany(targetEntity=Praticien::class, inversedBy="specialites")
    */
-  private $medecins;
+  private $Praticiens;
 
   public function __construct()
   {
-    $this->medecins = new ArrayCollection();
+    $this->Praticiens = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -62,25 +62,25 @@ class Specialite
   }
 
   /**
-   * @return Collection|Medecin[]
+   * @return Collection|Praticien[]
    */
-  public function getMedecins(): Collection
+  public function getPraticiens(): Collection
   {
-    return $this->medecins;
+    return $this->Praticiens;
   }
 
-  public function addMedecin(Medecin $medecin): self
+  public function addPraticien(Praticien $Praticien): self
   {
-    if (!$this->medecins->contains($medecin)) {
-      $this->medecins[] = $medecin;
+    if (!$this->Praticiens->contains($Praticien)) {
+      $this->Praticiens[] = $Praticien;
     }
 
     return $this;
   }
 
-  public function removeMedecin(Medecin $medecin): self
+  public function removePraticien(Praticien $Praticien): self
   {
-    $this->medecins->removeElement($medecin);
+    $this->Praticiens->removeElement($Praticien);
 
     return $this;
   }

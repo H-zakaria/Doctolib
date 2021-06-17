@@ -1,0 +1,37 @@
+
+
+changer medecin pour 'soignant'? ->autres participants que medecins	
+quelles methodes ajouter?
+
+-Patient: 
+	-prendre/annuler rdv
+	-donner un avis sur la qualité d'une consultation?
+	
+-Soignant:
+	-controller la plage horaire des rdvs
+	-annuler rdv
+	-bloquer un patient (empecher d'avoir rdv)
+	-ajouter/retirer etablissement (utile pour localiser le soignant)
+	-ajouter(/retirer?)/changer une specialité
+	-fournir diplôme
+	-Dossier patient
+-Rdv: 
+	-s'assurer que deux rdvs ne peuvent pas se superposer
+	-s'assurer qu'un rdv ne peut pas exceder limite horaire
+
+-User:
+	-supression compte
+-etablissements
+	-changer d'adresse
+
+-fonctionalité: voir les horaires disponibles d'un med
+
+-faire classe mere user
+
+-apprendre à faire requête plus complexe pour rechercher .... 
+
+-creer compte soignant -> donne diplome -> attend confirm ->compte=temporaire ->peut mettre en place son organisation (peut tout faire mais invisible pour patients)
+->une fois confirmé = compte soignant
+->sinon viré IP BAN
+
+1 changer medecin en soignant

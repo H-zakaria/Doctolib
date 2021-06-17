@@ -3,7 +3,7 @@
 namespace App\test\Entity;
 
 use App\Entity\Patient;
-use App\Entity\Medecin;
+use App\Entity\Praticien;
 use App\Entity\Rdv;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -93,21 +93,21 @@ class PatientTest extends KernelTestCase
   public function testAddRDV()
   {
     $rdv = new Rdv();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $toubib->setNom('roberto');
-    $rdv->setMedecin($toubib);
+    $rdv->setPraticien($toubib);
     $pat = new Patient();
     $pat->addRdv($rdv);
     $rdvs = $pat->getRdvs();
 
-    assertEquals('roberto', $rdvs[0]->getMedecin()->getNom(), 'addRDV ne marche pas');
+    assertEquals('roberto', $rdvs[0]->getPraticien()->getNom(), 'addRDV ne marche pas');
   }
   public function testRemoveRDV()
   {
     $rdv = new Rdv();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $toubib->setNom('roberto');
-    $rdv->setMedecin($toubib);
+    $rdv->setPraticien($toubib);
     $pat = new Patient();
     $pat->addRdv($rdv);
     if (!$pat->getRdvs()->isEmpty()) {

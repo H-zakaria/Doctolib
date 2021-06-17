@@ -3,74 +3,74 @@
 namespace App\test\Entity;
 
 use App\Entity\Rdv;
-use App\Entity\Medecin;
+use App\Entity\Praticien;
 use App\Entity\Patient;
 use App\Entity\Specialite;
 use App\Entity\Etablissement;
 use function PHPUnit\Framework\assertEquals;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class MedecinTest extends KernelTestCase
+class PraticienTest extends KernelTestCase
 {
-  public function testMedecinIsInvalid()
+  public function testPraticienIsInvalid()
   {
     $kernel = self::bootKernel();
     $validator = $kernel->getContainer()->get('validator');
-    $medecin = new Medecin();
-    $medecin->setNom("j")
+    $Praticien = new Praticien();
+    $Praticien->setNom("j")
       ->setPrenom("p");
-    $errors = $validator->validate($medecin);
+    $errors = $validator->validate($Praticien);
 
     $this->assertCount(2, $errors, "Une erreur est attendue car moins de 2 chars");
   }
 
-  public function testMedecinIsValid()
+  public function testPraticienIsValid()
   {
     $kernel = self::bootKernel();
     $validator = $kernel->getContainer()->get('validator');
-    $medecin = new Medecin();
-    $medecin->setNom("jean")
+    $Praticien = new Praticien();
+    $Praticien->setNom("jean")
       ->setPrenom("patrick");
-    $errors = $validator->validate($medecin);
+    $errors = $validator->validate($Praticien);
 
     $this->assertCount(0, $errors, "Une erreur est attendue car plus de 2 chars");
   }
   public function testSetNom()
   {
-    $Medecin = new Medecin;
-    $Medecin->setNom('jp');
+    $Praticien = new Praticien;
+    $Praticien->setNom('jp');
 
-    $nom = $Medecin->getNom();
+    $nom = $Praticien->getNom();
     assertEquals('jp', $nom, 'setNom marche pas');
   }
   public function testGetNom()
   {
-    $Medecin = new Medecin;
-    $Medecin->setNom('jp');
+    $Praticien = new Praticien;
+    $Praticien->setNom('jp');
 
-    $nom = $Medecin->getNom();
+    $nom = $Praticien->getNom();
     assertEquals('jp', $nom, 'getNom marche pas');
   }
   public function testSetPrenom()
   {
-    $Medecin = new Medecin;
-    $Medecin->setPrenom('jp');
+    $Praticien = new Praticien;
+    $Praticien->setPrenom('jp');
 
-    $Prenom = $Medecin->getPrenom();
+    $Prenom = $Praticien->getPrenom();
     assertEquals('jp', $Prenom, 'setPrenom marche pas');
   }
   public function testGetPrenom()
   {
-    $Medecin = new Medecin;
-    $Medecin->setPrenom('jp');
+    $Praticien = new Praticien;
+    $Praticien->setPrenom('jp');
 
-    $Prenom = $Medecin->getPrenom();
+    $Prenom = $Praticien->getPrenom();
     assertEquals('jp', $Prenom, 'getPrenom marche pas');
   }
   public function testAddRDV()
   {
     $rdv = new Rdv();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $pat = new Patient();
     $pat->setNom('roberto');
     $rdv->setPatient($pat);
@@ -82,7 +82,7 @@ class MedecinTest extends KernelTestCase
   public function testRemoveRDV()
   {
     $rdv = new Rdv();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $pat = new Patient();
     $pat->setNom('roberto');
     $rdv->setPatient($pat);
@@ -98,7 +98,7 @@ class MedecinTest extends KernelTestCase
   public function testAddSpecialite()
   {
     $spe = new Specialite();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $spe->setDesignation('cardiologie');
     $toubib->addSpecialite($spe);
 
@@ -107,7 +107,7 @@ class MedecinTest extends KernelTestCase
   public function testGetSpecialite()
   {
     $spe = new Specialite();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $spe->setDesignation('cardiologie');
     $toubib->addSpecialite($spe);
     assertEquals('cardiologie', $toubib->getSpecialites()[0]->getDesignation());
@@ -115,7 +115,7 @@ class MedecinTest extends KernelTestCase
   public function testRemoveSpecialite()
   {
     $spe = new Specialite();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $spe->setDesignation('cardiologie');
     $toubib->addSpecialite($spe);
     $toubib->removeSpecialite($spe);
@@ -124,7 +124,7 @@ class MedecinTest extends KernelTestCase
   public function testAddEtablissement()
   {
     $etablissement = new Etablissement();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $toubib->addEtablissement($etablissement);
 
     $this->assertNotNull($toubib->getEtablissements()[0], 'addEtablissement  marche pas');
@@ -133,7 +133,7 @@ class MedecinTest extends KernelTestCase
   {
 
     $etablissement = new Etablissement();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $toubib->addEtablissement($etablissement);
 
     $this->assertNotNull($toubib->getEtablissements()[0], ('getEtablissement marche pas'));
@@ -141,7 +141,7 @@ class MedecinTest extends KernelTestCase
   public function testRemoveEtablissements()
   {
     $etablissement = new Etablissement();
-    $toubib = new Medecin();
+    $toubib = new Praticien();
     $toubib->addEtablissement($etablissement);
     $toubib->removeEtablissement($etablissement);
     $this->assertNull($toubib->getEtablissements()[0], 'getEtablissement marche pas');

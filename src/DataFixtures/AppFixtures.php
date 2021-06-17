@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Etablissement;
-use App\Entity\Medecin;
+use App\Entity\Praticien;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Patient;
@@ -15,10 +15,10 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // creation 5 patients, specialité, medecins, etablissements, rdv
+        // creation 5 patients, specialité, Praticiens, etablissements, rdv
         for ($i = 0; $i < 5; $i++) {
             $patient =   new Patient();
-            $patient->setNom('jj')->setPrenom($i)->setRue('zdzd')->setVille('efe')->setDateNaissance(new DateTime('now'));
+            $patient->setNom('jj')->setPrenom($i)->setRue('zdzd')->setVille('efe')->setDateNaissance(new DateTime('now'))->setMdp('mdp')->setMail('asiasij');
             $manager->persist($patient);
 
             $spe = new Specialite;
@@ -28,16 +28,16 @@ class AppFixtures extends Fixture
             $et->setVille('ashsdzdzu');
             $et->setRue('ashsdzdzu');
             $manager->persist($et);
-            $med =   new Medecin();
-            $med->setNom('jj')->setPrenom($i)->addEtablissement($et)->addSpecialite($spe);
-            $spe->addMedecin($med);
+            $med =   new Praticien();
+            $med->setNom('jj')->setPrenom($i)->addEtablissement($et)->addSpecialite($spe)->setMdp('mdp')->setMail('asiasij');
+            $spe->addPraticien($med);
             $manager->persist($spe);
             $manager->persist($med);
 
             $d = "20-10-190" . $i;
             $date = new DateTime($d);
             $rdv = new Rdv;
-            $rdv->setPatient($patient)->setMedecin($med)->setDateTime($date);
+            $rdv->setPatient($patient)->setPraticien($med)->setDateTime($date);
             $manager->persist($rdv);
         }
         $manager->flush();

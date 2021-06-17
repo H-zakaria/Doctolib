@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity(repositoryClass=PatientRepository::class)
  */
@@ -99,6 +100,21 @@ class Patient
    * @Assert\NotNull;
    */
   private $date_naissance;
+
+  /**
+   * @ORM\Column(type="string", length=255)
+   */
+  private $mail;
+
+  /**
+   * @ORM\Column(type="string", length=255)
+   */
+  private $mdp;
+
+  /**
+   * @ORM\Column(type="integer")
+   */
+  private $tel;
 
   public function __construct()
   {
@@ -198,5 +214,41 @@ class Patient
     $this->date_naissance = $date_naissance;
 
     return $this;
+  }
+
+  public function getMail(): ?string
+  {
+      return $this->mail;
+  }
+
+  public function setMail(string $mail): self
+  {
+      $this->mail = $mail;
+
+      return $this;
+  }
+
+  public function getMdp(): ?string
+  {
+      return $this->mdp;
+  }
+
+  public function (string $setMdpmdp): self
+  {
+      $this->mdp = $mdp;
+
+      return $this;
+  }
+
+  public function getTel(): ?int
+  {
+      return $this->tel;
+  }
+
+  public function setTel(int $tel): self
+  {
+      $this->tel = $tel;
+
+      return $this;
   }
 }

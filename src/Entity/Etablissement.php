@@ -34,9 +34,9 @@ class Etablissement
   private $nom;
 
   /**
-   * @ORM\ManyToMany(targetEntity=Medecin::class, inversedBy="etablissements")
+   * @ORM\ManyToMany(targetEntity=Praticien::class, inversedBy="etablissements")
    */
-  private $medecins;
+  private $Praticiens;
 
   /**
    * @ORM\Column(type="string", length=70)
@@ -71,7 +71,7 @@ class Etablissement
 
   public function __construct()
   {
-    $this->medecins = new ArrayCollection();
+    $this->Praticiens = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -92,25 +92,25 @@ class Etablissement
   }
 
   /**
-   * @return Collection|Medecin[]
+   * @return Collection|Praticien[]
    */
-  public function getMedecins(): Collection
+  public function getPraticiens(): Collection
   {
-    return $this->medecins;
+    return $this->Praticiens;
   }
 
-  public function addMedecin(Medecin $medecin): self
+  public function addPraticien(Praticien $Praticien): self
   {
-    if (!$this->medecins->contains($medecin)) {
-      $this->medecins[] = $medecin;
+    if (!$this->Praticiens->contains($Praticien)) {
+      $this->Praticiens[] = $Praticien;
     }
 
     return $this;
   }
 
-  public function removeMedecin(Medecin $medecin): self
+  public function removePraticien(Praticien $Praticien): self
   {
-    $this->medecins->removeElement($medecin);
+    $this->Praticiens->removeElement($Praticien);
 
     return $this;
   }
@@ -138,5 +138,4 @@ class Etablissement
 
     return $this;
   }
-  
 }
