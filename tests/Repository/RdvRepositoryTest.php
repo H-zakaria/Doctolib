@@ -46,7 +46,7 @@ class RdvRepositoryTest extends KernelTestCase
         self::bootKernel();
         $repository = self::$container->get(RdvRepository::class);
         $this->loadFixtures([AppFixtures::class]);
-        $rdvs = $repository->findBy(['nom' => 'jj']);
-        $this->assertCount(5, $rdvs, 'pb testFindBy');
+        $rdvs = $repository->findBy(['id' => 1]);
+        $this->assertCount(1, $rdvs, 'pb testFindBy');
     }
 }

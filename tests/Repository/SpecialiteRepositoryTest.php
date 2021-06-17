@@ -46,7 +46,7 @@ class SpecialiteRepositoryTest extends KernelTestCase
         self::bootKernel();
         $repository = self::$container->get(SpecialiteRepository::class);
         $this->loadFixtures([AppFixtures::class]);
-        $Specialites = $repository->findBy(['nom' => 'jj']);
+        $Specialites = $repository->findBy(['designation' => 'cardio']);
         $this->assertCount(5, $Specialites, 'pb testFindBy');
     }
 }
