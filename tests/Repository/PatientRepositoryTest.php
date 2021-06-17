@@ -7,7 +7,7 @@ use App\Repository\PatientRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 
-class PatientRepositoryTest extends KernelTestCase
+class PatientaRepositoryTest extends KernelTestCase
 {
     use FixturesTrait;
 

@@ -3,18 +3,18 @@
 namespace App\test\Repository;
 
 use App\DataFixtures\AppFixtures;
-use App\Repository\PatientRepository;
+use App\Repository\EtablissementRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 
-class PatientRepositoryTest extends KernelTestCase
+class EtablissementRepositoryTest extends KernelTestCase
 {
     use FixturesTrait;
 
     public function testFind()
     {
         self::bootKernel();
-        $repository = self::$container->get(PatientRepository::class);
+        $repository = self::$container->get(EtablissementRepository::class);
         $this->loadFixtures([AppFixtures::class]);
         $patient = $repository->find(1);
         $this->assertIsObject($patient, 'testFind pb');
@@ -24,7 +24,7 @@ class PatientRepositoryTest extends KernelTestCase
     public function testFindAll()
     {
         self::bootKernel();                                                                     // va permettre d'acceder au container (qui contient nos classes)
-        $repository = self::$container->get(PatientRepository::class);
+        $repository = self::$container->get(EtablissementRepository::class);
         $this->loadFixtures([AppFixtures::class]);                                              //purge et inserre les data de test
         $patients = $repository->findAll();
         $this->assertCount(5, $patients);
@@ -33,7 +33,7 @@ class PatientRepositoryTest extends KernelTestCase
     public function testFindOneBy()
     {
         self::bootKernel();
-        $repository = self::$container->get(PatientRepository::class);
+        $repository = self::$container->get(EtablissementRepository::class);
         $this->loadFixtures([AppFixtures::class]);
         $patient = $repository->findOneBy(['id' => 1]);
         $this->assertIsObject($patient, 'testFindOneBy pb');
@@ -44,7 +44,7 @@ class PatientRepositoryTest extends KernelTestCase
     public function testFindBy()
     {
         self::bootKernel();
-        $repository = self::$container->get(PatientRepository::class);
+        $repository = self::$container->get(EtablissementRepository::class);
         $this->loadFixtures([AppFixtures::class]);
         $patients = $repository->findBy(['nom' => 'jj']);
         $this->assertCount(5, $patients, 'pb testFindBy');
