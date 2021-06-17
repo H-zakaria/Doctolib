@@ -8,24 +8,30 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Patient;
 use App\Entity\Rdv;
+use App\Entity\Specialite;
 use DateTime;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        // creation 5 patients, specialité, medecins, etablissements, rdv
         for ($i = 0; $i < 5; $i++) {
             $patient =   new Patient();
             $patient->setNom('jj')->setPrenom($i)->setRue('zdzd')->setVille('efe')->setDateNaissance(new DateTime('now'));
             $manager->persist($patient);
 
+            $spe = new Specialite;
+            $spe->setDesignation('cardio');
             $et = new Etablissement;
-            $et->setNom('ashsu');
+            $et->setNom('cabinet');
             $et->setVille('ashsdzdzu');
             $et->setRue('ashsdzdzu');
             $manager->persist($et);
             $med =   new Medecin();
-            $med->setNom('jj')->setPrenom($i)->addEtablissement($et);
+            $med->setNom('jj')->setPrenom($i)->addEtablissement($et)->addSpecialite($spe);
+            $spe->addMedecin($med);
+            $manager->persist($spe);
             $manager->persist($med);
 
             $d = "20-10-190" . $i;
