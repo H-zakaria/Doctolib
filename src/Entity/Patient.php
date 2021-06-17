@@ -218,37 +218,37 @@ class Patient
 
   public function getMail(): ?string
   {
-      return $this->mail;
+    return $this->mail;
   }
 
   public function setMail(string $mail): self
   {
-      $this->mail = $mail;
+    $this->mail = $mail;
 
-      return $this;
+    return $this;
   }
 
   public function getMdp(): ?string
   {
-      return $this->mdp;
+    return $this->mdp;
   }
 
-  public function (string $setMdpmdp): self
+  public function setMdp(string $mdp): self
   {
-      $this->mdp = $mdp;
+    $this->mdp = $mdp;
 
-      return $this;
+    return $this;
   }
 
   public function getTel(): ?int
   {
-      return $this->tel;
+    return $this->tel;
   }
 
   public function setTel(int $tel): self
   {
-      $this->tel = $tel;
+    $this->tel = $tel;
 
-      return $this;
+    return $this;
   }
 }
