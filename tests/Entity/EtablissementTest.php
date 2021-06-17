@@ -5,9 +5,12 @@ namespace App\test\Entity;
 use App\Entity\Etablissement;
 use App\Entity\Medecin;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+
+use function PHPUnit\Framework\assertEmpty;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertCount;
 
 class EtablissementTest extends KernelTestCase
 {
@@ -67,11 +70,10 @@ class EtablissementTest extends KernelTestCase
   {
     $et = new Etablissement;
     $m = new Medecin;
+    $m->setNom('fred');
     $et->addMedecin($m);
-    if (!$et->getMedecins()->isEmpty()) {
-      $et->removeMedecin($m);
-      assertNull($et->getMedecins());
-    }
+    $et->removeMedecin($m);
+    assertCount(0, $et->getMedecins());
   }
 
   public function testSetGetVille()
