@@ -54,22 +54,22 @@ class Praticien
    */
   private $prenom;
 
-  /**
-   * @ORM\ManyToMany(targetEntity=Specialite::class, mappedBy="Praticiens")
-   * @Assert\NotNull;
-   */
-  private $specialites;
+  // /**
+  //  * @ORM\ManyToMany(targetEntity=Specialite::class, mappedBy="Praticiens")
+  //  * @Assert\NotNull;
+  //  */
+  // private $specialites;
 
-  /**
-   * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="Praticien", orphanRemoval=true)
-   * @Assert\NotNull;
-   */
-  private $rdvs;
+  // /**
+  //  * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="Praticien", orphanRemoval=true)
+  //  * @Assert\NotNull;
+  //  */
+  // private $rdvs;
 
-  /**
-   * @ORM\ManyToMany(targetEntity=Etablissement::class, mappedBy="Praticiens")
-   */
-  private $etablissements;
+  // /**
+  //  * @ORM\ManyToMany(targetEntity=Etablissement::class, mappedBy="Praticiens")
+  //  */
+  // private $etablissements;
 
   /**
    * @ORM\Column(type="string", length=255)
@@ -122,123 +122,123 @@ class Praticien
     return $this;
   }
 
-  /**
-   * @return Collection|Specialite[]
-   */
-  public function getSpecialites(): Collection
-  {
-    return $this->specialites;
-  }
+  // /**
+  //  * @return Collection|Specialite[]
+  //  */
+  // public function getSpecialites(): Collection
+  // {
+  //   return $this->specialites;
+  // }
 
-  public function addSpecialite(Specialite $specialite): self
-  {
-    if (!$this->specialites->contains($specialite)) {
-      $this->specialites[] = $specialite;
-      $specialite->addPraticien($this);
-    }
+  // public function addSpecialite(Specialite $specialite): self
+  // {
+  //   if (!$this->specialites->contains($specialite)) {
+  //     $this->specialites[] = $specialite;
+  //     $specialite->addPraticien($this);
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
-  public function removeSpecialite(Specialite $specialite): self
-  {
-    if ($this->specialites->removeElement($specialite)) {
-      $specialite->removePraticien($this);
-    }
+  // public function removeSpecialite(Specialite $specialite): self
+  // {
+  //   if ($this->specialites->removeElement($specialite)) {
+  //     $specialite->removePraticien($this);
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
-  /**
-   * @return Collection|Rdv[]
-   */
-  public function getRdvs(): Collection
-  {
-    return $this->rdvs;
-  }
+  // /**
+  //  * @return Collection|Rdv[]
+  //  */
+  // public function getRdvs(): Collection
+  // {
+  //   return $this->rdvs;
+  // }
 
-  public function addRdv(Rdv $rdv): self
-  {
-    if (!$this->rdvs->contains($rdv)) {
-      $this->rdvs[] = $rdv;
-      $rdv->setPraticien($this);
-    }
+  // public function addRdv(Rdv $rdv): self
+  // {
+  //   if (!$this->rdvs->contains($rdv)) {
+  //     $this->rdvs[] = $rdv;
+  //     $rdv->setPraticien($this);
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
-  public function removeRdv(Rdv $rdv): self
-  {
-    if ($this->rdvs->removeElement($rdv)) {
-      // set the owning side to null (unless already changed)
-      if ($rdv->getPraticien() === $this) {
-        $rdv->setPraticien(null);
-      }
-    }
+  // public function removeRdv(Rdv $rdv): self
+  // {
+  //   if ($this->rdvs->removeElement($rdv)) {
+  //     // set the owning side to null (unless already changed)
+  //     if ($rdv->getPraticien() === $this) {
+  //       $rdv->setPraticien(null);
+  //     }
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
-  /**
-   * @return Collection|Etablissement[]
-   */
-  public function getEtablissements(): Collection
-  {
-    return $this->etablissements;
-  }
+  // /**
+  //  * @return Collection|Etablissement[]
+  //  */
+  // public function getEtablissements(): Collection
+  // {
+  //   return $this->etablissements;
+  // }
 
-  public function addEtablissement(Etablissement $etablissement): self
-  {
-    if (!$this->etablissements->contains($etablissement)) {
-      $this->etablissements[] = $etablissement;
-      $etablissement->addPraticien($this);
-    }
+  // public function addEtablissement(Etablissement $etablissement): self
+  // {
+  //   if (!$this->etablissements->contains($etablissement)) {
+  //     $this->etablissements[] = $etablissement;
+  //     $etablissement->addPraticien($this);
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
-  public function removeEtablissement(Etablissement $etablissement): self
-  {
-    if ($this->etablissements->removeElement($etablissement)) {
-      $etablissement->removePraticien($this);
-    }
+  // public function removeEtablissement(Etablissement $etablissement): self
+  // {
+  //   if ($this->etablissements->removeElement($etablissement)) {
+  //     $etablissement->removePraticien($this);
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
   public function getMail(): ?string
   {
-      return $this->mail;
+    return $this->mail;
   }
 
   public function setMail(string $mail): self
   {
-      $this->mail = $mail;
+    $this->mail = $mail;
 
-      return $this;
+    return $this;
   }
 
   public function getMdp(): ?string
   {
-      return $this->mdp;
+    return $this->mdp;
   }
 
   public function setMdp(string $mdp): self
   {
-      $this->mdp = $mdp;
+    $this->mdp = $mdp;
 
-      return $this;
+    return $this;
   }
 
   public function getTel(): ?int
   {
-      return $this->tel;
+    return $this->tel;
   }
 
   public function setTel(int $tel): self
   {
-      $this->tel = $tel;
+    $this->tel = $tel;
 
-      return $this;
+    return $this;
   }
 }
