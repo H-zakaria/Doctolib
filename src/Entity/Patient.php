@@ -18,10 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Patient
 {
-  private $service;
-
-
-
   /**
    * @ORM\Id
    * @ORM\GeneratedValue
@@ -151,39 +147,39 @@ class Patient
 
     return $this;
   }
-  public function __construct()
-  {
-    $this->rdvs = new ArrayCollection();
-  }
-  /**
-   * @return Collection|Rdv[]
-   */
-  public function getRdvs(): Collection
-  {
-    return $this->rdvs;
-  }
+  // public function __construct()
+  // {
+  //   $this->rdvs = new ArrayCollection();
+  // }
+  // /**
+  //  * @return Collection|Rdv[]
+  //  */
+  // public function getRdvs(): Collection
+  // {
+  //   return $this->rdvs;
+  // }
 
-  public function addRdv(Rdv $rdv): self
-  {
-    if (!$this->rdvs->contains($rdv)) {
-      $this->rdvs[] = $rdv;
-      $rdv->setPatient($this);
-    }
+  // public function addRdv(Rdv $rdv): self
+  // {
+  //   if (!$this->rdvs->contains($rdv)) {
+  //     $this->rdvs[] = $rdv;
+  //     $rdv->setPatient($this);
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
-  public function removeRdv(Rdv $rdv): self
-  {
-    if ($this->rdvs->removeElement($rdv)) {
-      // set the owning side to null (unless already changed)
-      if ($rdv->getPatient() === $this) {
-        $rdv->setPatient(null);
-      }
-    }
+  // public function removeRdv(Rdv $rdv): self
+  // {
+  //   if ($this->rdvs->removeElement($rdv)) {
+  //     set the owning side to null (unless already changed)
+  //     if ($rdv->getPatient() === $this) {
+  //       $rdv->setPatient(null);
+  //     }
+  //   }
 
-    return $this;
-  }
+  //   return $this;
+  // }
 
   public function getVille(): ?string
   {
@@ -254,12 +250,5 @@ class Patient
     $this->tel = $tel;
 
     return $this;
-  }
-
-  public function prendreRdv(Praticien $praticien, DateTime $dateTime)
-  {
-    $rdv = new Rdv();
-    $rdv->setPraticien($praticien)->setDateTime($dateTime)->setPatient($this);
-    $this->addRdv($rdv);
   }
 }
