@@ -1,6 +1,6 @@
 <?php
 
-namespace APP\Service;
+namespace App\Service;
 
 use App\Entity\Praticien;
 use App\Entity\Patient;
@@ -11,38 +11,45 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class RdvService
 {
-    private $em;
-    private $rep;
+  private $em;
+  private $rep;
 
-    public function __construct(EntityManagerInterface $em, RdvRepository $rep)
-    {
-        $this->em = $em;
-        $this->rep = $rep;
+  public function __construct(EntityManagerInterface $em, RdvRepository $rep)
+  {
+    $this->em = $em;
+    $this->rep = $rep;
+  }
+
+  public function prendreRdv(Praticien $praticien, DateTime $dateTime, Patient $patient)
+  {
+    $rdv = new Rdv;
+    $rdv->setPraticien($praticien)->setDateTime($dateTime);
+    $patient->addRdv($rdv);
+    if ($this::rdvIsValid($rdv)) {
+      $this->em->persist($patient);
+      $this->em->flush();
     }
+  }
 
-    public function prendreRdv(Praticien $praticien, DateTime $dateTime, Patient $patient)
-    {
+  private static function rdvIsValid(Rdv $rdv)
+  {
+    //recup les rdvs du prat 
+    $dateTime = $rdv->getDateTime();
+    $date = $dateTime->format('d-m-Y');
+    $prat = $rdv->getPraticien();
+    $pratRdvs = ($prat->getRdvs())->toArray();
+    //recup les rdvs qui qui ont lieu le mm jour
+    // $mmJour = array_filter($pratRdvs, function ($d) {
+    //   //formatter pour exclure h-m-s
+    //   return $date == $d->format('d-m-Y'); //convertir $d en date ? $d = strtotime($d);
+    // });
+  }
 
-        //trouver la date et l'heure des rdvs les plus proches du praticien;
-        $rdvsDuPrat =  ($praticien->getRdvs())->toArray();
-        $rdvPrev = $rdvsDuPrat[0];
-        $rdvSuivant = $rdvsDuPrat[0];
-        // array_filter($rdvsDuPrat, function());
-
-
-
-        $rdv = new Rdv;
-        $rdv->setPraticien($praticien)->setDateTime($dateTime);
-        $patient->addRdv($rdv);
-        $this->em->persist($patient);
-        $this->em->flush();
-    }
-
-    public function annulerRdv(Rdv $rdv)
-    {
-        $patient =  $rdv->getPatient();
-        $patient->removeRdv($rdv);
-        $this->em->persist($patient);
-        $this->em->flush;
-    }
+  public function annulerRdv(Rdv $rdv)
+  {
+    $patient =  $rdv->getPatient();
+    $patient->removeRdv($rdv);
+    $this->em->persist($patient);
+    $this->em->flush;
+  }
 }

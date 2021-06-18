@@ -1,6 +1,6 @@
 <?php
 
-namespace APP\Entity;
+namespace App\Entity;
 
 use App\Repository\PatientRepository;
 use APP\Service\PatientService;

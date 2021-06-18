@@ -1,6 +1,6 @@
 <?php
 
-namespace APP\Service;
+namespace App\Service;
 
 use App\Entity\Praticien;
 use App\Entity\Patient;
@@ -11,12 +11,12 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PatientService
 {
-    private $em;
-    private $rep;
+  private $em;
+  private $rep;
 
-    public function __construct(EntityManagerInterface $em, PatientRepository $rep)
-    {
-        $this->em = $em;
-        $this->rep = $rep;
-    }
+  public function __construct(EntityManagerInterface $em, PatientRepository $rep)
+  {
+    $this->em = $em;
+    $this->rep = $rep;
+  }
 }
