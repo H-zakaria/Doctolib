@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
+use App\DTO\PraticienDTO;
 use App\Entity\Praticien;
 use FOS\RestBundle\View\View;
-use App\Repository\PraticienRepository;
 use App\Service\PraticienService;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use App\Repository\PraticienRepository;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 // = un webservice
 class PraticienController extends AbstractFOSRestController
@@ -20,15 +22,15 @@ class PraticienController extends AbstractFOSRestController
         $this->rep = $rep;
         $this->serv = $service;
     }
-    // /**
-    //  * @GET("praticiens")
-    //  * @return void
-    //  */
-    // public function getAll()
-    // {
-    //     $praticiens = $this->rep->findAll();
-    //     return View::create($praticiens, 200, ["content-type" => "application/json"]);
-    // }
+    /**
+     * @GET("praticiens")
+     * @return void
+     */
+    public function getAll()
+    {
+        $praticiens = $this->rep->findAll();
+        return View::create($praticiens, 200, ["content-type" => "application/json"]);
+    }
     /**
      * @GET("praticiens/{id}")
      * 
@@ -44,10 +46,12 @@ class PraticienController extends AbstractFOSRestController
 
     /**
      * @Post("/praticiens")
+     * @ParamConverter("praticien", converter="fos_rest.request_body")
      * @return void
      */
-    public function creerPrat(Praticien $praticien)
+    public function creerPrat(PraticienDTO $praticienDTO)
     {
-        return $this->serv->creerPrat($praticien);
+        $this->serv->createPrat($praticienDTO);
+        return View::create(null, 200, ["content-type" => "application/json"]);
     }
 }

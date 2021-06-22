@@ -66,10 +66,10 @@ class Praticien
   //  */
   // private $rdvs;
 
-  // /**
-  //  * @ORM\ManyToMany(targetEntity=Etablissement::class, mappedBy="Praticiens")
-  //  */
-  // private $etablissements;
+  /**
+   * @ORM\ManyToMany(targetEntity=Etablissement::class, mappedBy="Praticiens")
+   */
+  private $etablissements;
 
   /**
    * @ORM\Column(type="string", length=255)
@@ -98,13 +98,11 @@ class Praticien
     return $this->id;
   }
 
-  public function setId(string $id): self
+  public function setId(int $id): self
   {
     $this->id = $id;
-
     return $this;
   }
-
   public function getNom(): ?string
   {
     return $this->nom;
@@ -129,89 +127,89 @@ class Praticien
     return $this;
   }
 
-  // /**
-  //  * @return Collection|Specialite[]
-  //  */
-  // public function getSpecialites(): Collection
-  // {
-  //   return $this->specialites;
-  // }
+  /**
+   * @return Collection|Specialite[]
+   */
+  public function getSpecialites(): Collection
+  {
+    return $this->specialites;
+  }
 
-  // public function addSpecialite(Specialite $specialite): self
-  // {
-  //   if (!$this->specialites->contains($specialite)) {
-  //     $this->specialites[] = $specialite;
-  //     $specialite->addPraticien($this);
-  //   }
+  public function addSpecialite(Specialite $specialite): self
+  {
+    if (!$this->specialites->contains($specialite)) {
+      $this->specialites[] = $specialite;
+      $specialite->addPraticien($this);
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
-  // public function removeSpecialite(Specialite $specialite): self
-  // {
-  //   if ($this->specialites->removeElement($specialite)) {
-  //     $specialite->removePraticien($this);
-  //   }
+  public function removeSpecialite(Specialite $specialite): self
+  {
+    if ($this->specialites->removeElement($specialite)) {
+      $specialite->removePraticien($this);
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
-  // /**
-  //  * @return Collection|Rdv[]
-  //  */
-  // public function getRdvs(): Collection
-  // {
-  //   return $this->rdvs;
-  // }
+  /**
+   * @return Collection|Rdv[]
+   */
+  public function getRdvs(): Collection
+  {
+    return $this->rdvs;
+  }
 
-  // public function addRdv(Rdv $rdv): self
-  // {
-  //   if (!$this->rdvs->contains($rdv)) {
-  //     $this->rdvs[] = $rdv;
-  //     $rdv->setPraticien($this);
-  //   }
+  public function addRdv(Rdv $rdv): self
+  {
+    if (!$this->rdvs->contains($rdv)) {
+      $this->rdvs[] = $rdv;
+      $rdv->setPraticien($this);
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
-  // public function removeRdv(Rdv $rdv): self
-  // {
-  //   if ($this->rdvs->removeElement($rdv)) {
-  //     // set the owning side to null (unless already changed)
-  //     if ($rdv->getPraticien() === $this) {
-  //       $rdv->setPraticien(null);
-  //     }
-  //   }
+  public function removeRdv(Rdv $rdv): self
+  {
+    if ($this->rdvs->removeElement($rdv)) {
+      // set the owning side to null (unless already changed)
+      if ($rdv->getPraticien() === $this) {
+        $rdv->setPraticien(null);
+      }
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
-  // /**
-  //  * @return Collection|Etablissement[]
-  //  */
-  // public function getEtablissements(): Collection
-  // {
-  //   return $this->etablissements;
-  // }
+  /**
+   * @return Collection|Etablissement[]
+   */
+  public function getEtablissements(): Collection
+  {
+    return $this->etablissements;
+  }
 
-  // public function addEtablissement(Etablissement $etablissement): self
-  // {
-  //   if (!$this->etablissements->contains($etablissement)) {
-  //     $this->etablissements[] = $etablissement;
-  //     $etablissement->addPraticien($this);
-  //   }
+  public function addEtablissement(Etablissement $etablissement): self
+  {
+    if (!$this->etablissements->contains($etablissement)) {
+      $this->etablissements[] = $etablissement;
+      $etablissement->addPraticien($this);
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
-  // public function removeEtablissement(Etablissement $etablissement): self
-  // {
-  //   if ($this->etablissements->removeElement($etablissement)) {
-  //     $etablissement->removePraticien($this);
-  //   }
+  public function removeEtablissement(Etablissement $etablissement): self
+  {
+    if ($this->etablissements->removeElement($etablissement)) {
+      $etablissement->removePraticien($this);
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
   public function getMail(): ?string
   {
