@@ -10,7 +10,7 @@ class PatientMapper
 
     public function convertPatientEntityToPatientDTO(Patient $patient): PatientDTO
     {
-        $patientDTO = (new PatientDTO())->setId($patient->getId())
+        $patientDTO = (new PatientDTO)->setId($patient->getId())
             ->setNom($patient->getNom())
             ->setPrenom($patient->getPrenom())
             ->setVille($patient->getVille())
