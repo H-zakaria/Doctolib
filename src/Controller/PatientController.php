@@ -2,32 +2,35 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use App\DTO\PatientDTO;
+use App\Entity\Patient;
+use App\Mapper\PatientMapper;
 use FOS\RestBundle\View\View;
+use App\Service\PatientService;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
-use App\Entity\Patient;
-use App\Repository\PatientRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class PatientController extends AbstractFOSRestController
 {
-    private $rep;
-    public function __construct(PatientRepository $rep)
+    private $patientService;
+
+    public function __construct(PatientService $patientService)
     {
-        $this->rep = $rep;
+        $this->patientService = $patientService;
     }
 
     /**
      * 
-     * @Get("patientss")
+     * @Get("patients")
      * @return void
      */
     public function getAll()
     {
-        $patients = $this->rep->findAll();
-        return View::create($patients, 200, ["content-type" => "application/json"]);
+        $patientsDTO = $this->patientService->findAll();
+        return View::create($patientsDTO, 200, ["content-type" => "application/json"]);
     }
 
     /**
@@ -35,40 +38,32 @@ class PatientController extends AbstractFOSRestController
      * @Get("patients/{id}")
      * @return void
      */
-    public function getId(Patient $patient)
+    public function getId(Patient $patientDTO)
     {
-        return View::create($patient, 200, ["content-type" => "application/json"]);
+        return View::create($patientDTO, 200, ["content-type" => "application/json"]);
     }
 
-
-    /***CreatePatient.
-     * @Post("/patient")*
+    /**
      * 
-     * @returnResponse
+     * @Post("patients")
+     * @ParamConverter("patient", converter="fos_rest.request_body")
+     * @return void
      */
-    public function postPatient(Request $request)
+    public function createPatient(PatientDTO $patientDTO)
     {
-        $patient = new Patient();
-        $form = $this->createForm(PatientType::class, $patient);
-        $data = json_decode($request->getContent(), true);
-        $form->submit($data);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($patient);
-            $em->flush();
-            return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_CREATED));
-        }
-        return $this->handleView($this->view($form->getErrors()));
+        // if (!$this->patientService->save($patientDTO)) {
+            return View::create(null, 404);
+        // }
+        return View::create(null, 200);
     }
 
-    /***CreatePatient.
-     * @Post("/patients")*
+    /**
+     * 
+     * @Delete("patients/{id}")
+     * @return void
      */
-    public function createPatient(Patient $patient)
+    public function deletePatient()
     {
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($patient);
-        $manager->flush();
-        return View::create(null, 200);
+
     }
 }

@@ -2,13 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\PatientRepository;
-use APP\Service\PatientService;
-use DateTime;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -124,6 +119,13 @@ class Patient
     return $this->id;
   }
 
+  public function setId(string $id): self
+  {
+    $this->id = $id;
+
+    return $this;
+  }
+
   public function getNom(): ?string
   {
     return $this->nom;
@@ -147,39 +149,38 @@ class Patient
 
     return $this;
   }
-  // public function __construct()
-  // {
-  //   $this->rdvs = new ArrayCollection();
-  // }
-  // /**
-  //  * @return Collection|Rdv[]
-  //  */
-  // public function getRdvs(): Collection
-  // {
-  //   return $this->rdvs;
-  // }
+  public function __construct()
+  {
+    $this->rdvs = new ArrayCollection();
+  }
+  /**
+   * @return Collection|Rdv[]
+   */
+  public function getRdvs(): Collection
+  {
+    return $this->rdvs;
+  }
 
-  // public function addRdv(Rdv $rdv): self
-  // {
-  //   if (!$this->rdvs->contains($rdv)) {
-  //     $this->rdvs[] = $rdv;
-  //     $rdv->setPatient($this);
-  //   }
+  public function addRdv(Rdv $rdv): self
+  {
+    if (!$this->rdvs->contains($rdv)) {
+      $this->rdvs[] = $rdv;
+      $rdv->setPatient($this);
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
-  // public function removeRdv(Rdv $rdv): self
-  // {
-  //   if ($this->rdvs->removeElement($rdv)) {
-  //     set the owning side to null (unless already changed)
-  //     if ($rdv->getPatient() === $this) {
-  //       $rdv->setPatient(null);
-  //     }
-  //   }
+  public function removeRdv(Rdv $rdv): self
+  {
+    if ($this->rdvs->removeElement($rdv)) {
+      if ($rdv->getPatient() === $this) {
+        $rdv->setPatient(null);
+      }
+    }
 
-  //   return $this;
-  // }
+    return $this;
+  }
 
   public function getVille(): ?string
   {

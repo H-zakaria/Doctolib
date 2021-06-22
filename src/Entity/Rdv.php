@@ -33,7 +33,7 @@ class Rdv
    * @ORM\ManyToOne(targetEntity=Praticien::class, inversedBy="rdvs")
    * @ORM\JoinColumn(nullable=false)
    */
-  private $Praticien;
+  private $praticien;
 
   public function getId(): ?int
   {
@@ -66,12 +66,12 @@ class Rdv
 
   public function getPraticien(): ?Praticien
   {
-    return $this->Praticien;
+    return $this->praticien;
   }
 
-  public function setPraticien(?Praticien $Praticien): self
+  public function setPraticien(?Praticien $praticien): self
   {
-    $this->Praticien = $Praticien;
+    $this->praticien = $praticien;
 
     return $this;
   }

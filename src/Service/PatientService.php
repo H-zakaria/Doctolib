@@ -2,21 +2,28 @@
 
 namespace App\Service;
 
-use App\Entity\Praticien;
-use App\Entity\Patient;
-use App\Entity\Rdv;
+use App\Mapper\PatientMapper;
 use App\Repository\PatientRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 
 class PatientService
 {
-  private $em;
-  private $rep;
+  private $patientRepository;
 
-  public function __construct(EntityManagerInterface $em, PatientRepository $rep)
+  public function __construct(PatientRepository $repo)
   {
-    $this->em = $em;
-    $this->rep = $rep;
+    $this->patientRepository = $repo;
+  }
+
+  public function findAll()
+  {
+    $patients = $this->patientRepository->findAll();
+    $patientDTOs = [];
+    foreach ($patients as $patient) {
+      $mapper = new PatientMapper();
+      $patientDTO = $mapper->convertPatientEntityToPatientDTO($patient);
+      $patientDTOs[] = $patientDTO;
+    }
+    return $patientDTOs;
   }
 }
