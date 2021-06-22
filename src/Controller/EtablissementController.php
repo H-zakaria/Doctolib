@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-<<<<<<< Updated upstream
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use App\Entity\Etablissement;
 use App\Repository\EtablissementRepository;
@@ -34,26 +33,8 @@ class EtablissementController extends AbstractFOSRestController
      * @return void
      */
 
-     public function getId(Etablissement $etablissement) {
-         return View::create($etablissement, 200, ["content-type" => "application/json"]);
-     }
-=======
-use App\Entity\Etablissement;
-use App\Service\EtablissementService;
-use App\Repository\EtablissementRepository;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-
-class EtablissementController extends AbstractFOSRestController
-{
-
-    private $serv;
-    public function __construct(EtablissementService $service)
+    public function getId(Etablissement $etablissement)
     {
-        $this->serv = $service;
+        return View::create($etablissement, 200, ["content-type" => "application/json"]);
     }
-    public function createEtablissement(Etablissement $e)
-    {
-        $this->serv->createEtablissement($e);
-    }
->>>>>>> Stashed changes
 }

@@ -1,11 +1,29 @@
 <?php
 
+namespace App\DTO;
+
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use OpenApi\Annotations as OA;
+
+/** 
+ * @OA\Schema(
+ *     description="Le PatientDTO",
+ *     title="Le PatientDTO",
+ *     required={"nom"},
+ * )
+ */
 
 class PatientDTO
 {
     private $id;
+
+    /**
+     * @OA\Property(
+     *     description="PatientDTO nom",
+     *     title="nom",
+     * )
+     */
     private $nom;
     private $prenom;
     private $rdvsDTO;
@@ -21,7 +39,7 @@ class PatientDTO
         return $this->id;
     }
 
-    public function setId(string $id): self
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -53,14 +71,23 @@ class PatientDTO
     }
     public function __construct()
     {
-        $this->rdvs = new ArrayCollection();
+        $this->rdvsDTO = new ArrayCollection();
     }
     /**
-     * @return Collection|RdvDTO[]
+     * @return Collection|Rdv[]
      */
     public function getRdvsDTO(): Collection
     {
         return $this->rdvsDTO;
+    }
+
+    public function addRdvDTO(RdvDTO $rdvDTO): self
+    {
+        if (!$this->rdvsDTO->contains($rdvDTO)) {
+            $this->rdvsDTO[] = $rdvDTO;
+        }
+
+        return $this;
     }
 
     public function getVille(): ?string

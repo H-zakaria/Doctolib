@@ -19,9 +19,9 @@ class Rdv
   private $id;
 
   /**
-   * @ORM\Column(type="datetime", unique=true)
+   * @ORM\Column(type="date")
    */
-  private $dateTime;
+  private $dateHeure;
 
   /**
    * @ORM\ManyToOne(targetEntity=Patient::class, inversedBy="rdvs")
@@ -40,14 +40,14 @@ class Rdv
     return $this->id;
   }
 
-  public function getDateTime(): ?\DateTimeInterface
+  public function getdateHeure(): ?\dateTimeInterface
   {
-    return $this->dateTime;
+    return $this->dateHeure;
   }
 
-  public function setDateTime(\DateTimeInterface $dateTime): self
+  public function setdateHeure(\dateTimeInterface $dateHeure): self
   {
-    $this->dateTime = $dateTime;
+    $this->dateHeure = $dateHeure;
 
     return $this;
   }

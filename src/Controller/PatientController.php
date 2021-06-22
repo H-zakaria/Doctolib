@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use OpenApi\Annotations as OA;
 use App\DTO\PatientDTO;
 use App\Entity\Patient;
 use App\Mapper\PatientMapper;
@@ -34,26 +35,54 @@ class PatientController extends AbstractFOSRestController
     }
 
     /**
-     * 
+     * @OA\Get(
+     *     path="/patients/{id}",
+     *     operationId="getById",
+     *     @OA\Response(
+     *         response=404,
+     *         description="Patient was not found"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Patient was found"
+     *     )
+     * )
      * @Get("patients/{id}")
      * @return void
      */
-    public function getId(Patient $patientDTO)
+    public function getById(Patient $patient)
     {
-        return View::create($patientDTO, 200, ["content-type" => "application/json"]);
+        $result =  $this->patientService->getById($patient);
+        if ($result) {
+            return View::create($result, 200, ["content-type" => "application/json"]);
+        } else {
+            return View::create($result, 404, ["content-type" => "application/json"]);
+        }
     }
 
     /**
-     * 
+     * @OA\Post(
+     *     path="/patients",
+     *     operationId="createPatient",
+     *     @OA\Response(
+     *         response=418,
+     *         description="Patient was not created"
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Patient was created"
+     *     ),
+     * requestBody={"$ref"="#/components/requestBodies/patients"}
+     * )
      * @Post("patients")
-     * @ParamConverter("patient", converter="fos_rest.request_body")
+     * @ParamConverter("patientDTO", converter="fos_rest.request_body")
      * @return void
      */
     public function createPatient(PatientDTO $patientDTO)
     {
-        // if (!$this->patientService->save($patientDTO)) {
-            return View::create(null, 404);
-        // }
+        if (!$this->patientService->createPatient($patientDTO)) {
+            return View::create(null, 418);
+        }
         return View::create(null, 200);
     }
 
@@ -64,6 +93,5 @@ class PatientController extends AbstractFOSRestController
      */
     public function deletePatient()
     {
-
     }
 }

@@ -1,0 +1,51 @@
+openapi: 3.0.0
+paths:
+  '/patients/{id}':
+    get:
+      operationId: getById
+      responses:
+        '404':
+          description: 'Patient was not found'
+        '200':
+          description: 'Patient was found'
+  /patients:
+    post:
+      operationId: createPatient
+      requestBody:
+        $ref: '#/components/requestBodies/patients'
+      responses:
+        '418':
+          description: 'Patient was not created'
+        '201':
+          description: 'Patient was created'
+components:
+  schemas:
+    PatientDTO:
+      title: 'Le PatientDTO'
+      description: 'Le PatientDTO'
+      required:
+        - nom
+      properties:
+        nom:
+          title: nom
+          description: 'PatientDTO nom'
+      type: object
+    Patient:
+      title: 'Le Patient'
+      description: 'Le Patient'
+      required:
+        - ''
+      properties:
+        id:
+          title: id
+          description: 'Patient id'
+          type: integer
+      type: object
+  requestBodies:
+    patients:
+      description: 'post bref'
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PatientDTO'

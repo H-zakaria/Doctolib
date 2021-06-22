@@ -3,6 +3,8 @@
 namespace App\Mapper;
 
 use App\DTO\PatientDTO;
+use App\DTO\PraticienDTO;
+use App\DTO\RdvDTO;
 use App\Entity\Patient;
 
 class PatientMapper
@@ -19,6 +21,23 @@ class PatientMapper
             ->setMail($patient->getMail())
             ->setMdp($patient->getMdp())
             ->setTel($patient->getTel());
+        $rdvs = $patient->getRdvs();
+        foreach ($rdvs as $rdv) {
+            $patientDTO->addRdvDTO((new RdvMapper)->convertRdvEntityToRdvDTO($rdv));
+        }
         return $patientDTO;
+    }
+    public function convertPatientDTOToPatientEntity(PatientDTO $patientDTO): Patient
+    {
+        $patientEntity = (new Patient)->setId($patientDTO->getId())
+            ->setNom($patientDTO->getNom())
+            ->setPrenom($patientDTO->getPrenom())
+            ->setVille($patientDTO->getVille())
+            ->setRue($patientDTO->getRue())
+            ->setDateNaissance($patientDTO->getDateNaissance())
+            ->setMail($patientDTO->getMail())
+            ->setMdp($patientDTO->getMdp())
+            ->setTel($patientDTO->getTel());
+        return $patientEntity;
     }
 }

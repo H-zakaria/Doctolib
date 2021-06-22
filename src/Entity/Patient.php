@@ -2,22 +2,28 @@
 
 namespace App\Entity;
 
+use App\Repository\PatientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
-/**
+/** 
+ * @OA\Schema(
+ *     description="Le Patient",
+ *     title="Le Patient",
+ *     required={""}
+ * )
  * @ORM\Entity(repositoryClass=PatientRepository::class)
  */
 class Patient
 {
-
-
-
-
   /**
+   * @OA\Property(
+   *     description="Patient id",
+   *     title="id",
+   *     type = "integer"
+   * )
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
@@ -100,7 +106,7 @@ class Patient
    * @ORM\Column(type="date")
    * @Assert\NotNull;
    */
-  private $date_naissance;
+  private $dateNaissance;
 
   /**
    * @ORM\Column(type="string", length=255)
@@ -212,12 +218,12 @@ class Patient
 
   public function getDateNaissance(): ?\DateTimeInterface
   {
-    return $this->date_naissance;
+    return $this->dateNaissance;
   }
 
-  public function setDateNaissance(\DateTimeInterface $date_naissance): self
+  public function setDateNaissance(\DateTimeInterface $dateNaissance): self
   {
-    $this->date_naissance = $date_naissance;
+    $this->dateNaissance = $dateNaissance;
 
     return $this;
   }
