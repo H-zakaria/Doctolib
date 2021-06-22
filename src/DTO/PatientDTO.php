@@ -1,7 +1,5 @@
 <?php
 
-namespace App\DTO;
-
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
