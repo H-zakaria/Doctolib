@@ -2,8 +2,6 @@
 
 namespace App\DTO;
 
-use App\Entity\Praticien;
-
 class PraticienDTO
 {
     private $id;

@@ -1,4 +1,7 @@
 openapi: 3.0.0
+info:
+  title: Example $ref error
+  version: 1.0.0
 paths:
   '/patients/{id}':
     get:
@@ -56,6 +59,16 @@ components:
         nom:
           title: nom
           description: 'PatientDTO nom'
+      type: object
+    SpecialiteDTO:
+      title: 'La SpecialitetDTO'
+      description: 'La SpecialitetDTO'
+      required:
+        - designation
+      properties:
+        designation:
+          title: designation
+          description: 'SpecialitetDTO designation'
       type: object
     Patient:
       title: 'Le Patient'

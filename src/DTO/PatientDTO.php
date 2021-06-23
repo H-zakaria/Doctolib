@@ -13,7 +13,6 @@ use OpenApi\Annotations as OA;
  *     required={"nom"},
  * )
  */
-
 class PatientDTO
 {
     private $id;
@@ -85,6 +84,17 @@ class PatientDTO
     {
         if (!$this->rdvsDTO->contains($rdvDTO)) {
             $this->rdvsDTO[] = $rdvDTO;
+        }
+
+        return $this;
+    }
+
+    public function removeRdv(RdvDTO $rdvDTO): self
+    {
+        if ($this->rdvs->removeElement($rdvDTO)) {
+            if ($rdvDTO->getPatientDTO() === $this) {
+                $rdvDTO->setPatientDTO(null);
+            }
         }
 
         return $this;
