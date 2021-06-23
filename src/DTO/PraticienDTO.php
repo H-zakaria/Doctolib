@@ -2,15 +2,82 @@
 
 namespace App\DTO;
 
+use OpenApi\Annotations as OA;
+
+/** 
+ * @OA\Schema(
+ *     description="Le PraticientDTO",
+ *     title="Le PraticientDTO",
+ *     required={"id", "nom", "prenom", "etablissements", "specialites", "mail", "mdp", "tel"},
+ * )
+ */
 class PraticienDTO
 {
+    /**
+     * @OA\Property(format="int64")
+     * @var int
+     */
     private $id;
+
+    /**
+     * @OA\Property(
+     *     description="PraticienDTO nom",
+     *     title="nom",
+     * )
+     * @var string
+     */
     private $nom;
+
+    /**
+     * @OA\Property(
+     *     description="PraticienDTO prenom",
+     *     title="prenom",
+     * )
+     * @var string
+     */
     private $prenom;
+
+    /**
+     * @OA\Property(
+     *     description="PraticienDTO etablissements",
+     *     title="etablissements",
+     * )
+     */
     private $etablissements = array();
+
+    /**
+     * @OA\Property(
+     *     description="PraticienDTO spcecialites",
+     *     title="spcecialites",
+     * )
+     */
     private $specialites = array();
+
+    /**
+     * @OA\Property(
+     *     description="PraticienDTO mail",
+     *     title="mail",
+     * )
+     * @var string
+     */
     private $mail;
+
+    /**
+     * @OA\Property(
+     *     description="PraticienDTO mdp",
+     *     title="mdp",
+     * )
+     * @var string
+     */
     private $mdp;
+
+    /**
+     * @OA\Property(
+     *     description="PraticienDTO tel",
+     *     title="tel",
+     * )
+     * @var int
+     */
     private $tel;
 
     /**

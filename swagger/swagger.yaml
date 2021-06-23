@@ -1,7 +1,4 @@
 openapi: 3.0.0
-info:
-  title: Example $ref error
-  version: 1.0.0
 paths:
   '/patients/{id}':
     get:
@@ -55,10 +52,94 @@ components:
       description: 'Le PatientDTO'
       required:
         - nom
+        - prenom
+        - rdvsDTO
+        - ville
+        - rue
+        - date_naissance
+        - mail
+        - mdp
+        - tel
       properties:
+        id:
+          type: integer
+          format: int64
         nom:
           title: nom
           description: 'PatientDTO nom'
+          type: string
+        prenom:
+          title: prenom
+          description: 'PatientDTO prenom'
+          type: string
+        rdvsDTO:
+          title: rdvsDTO
+          description: 'PatientDTO rdvsDTO'
+        ville:
+          title: ville
+          description: 'PatientDTO ville'
+          type: string
+        rue:
+          title: rue
+          description: 'PatientDTO rue'
+          type: string
+        date_naissance:
+          title: dateNaissance
+          description: 'PatientDTO dateNaissance'
+        mail:
+          title: mail
+          description: 'PatientDTO mail'
+          type: string
+        mdp:
+          title: mdp
+          description: 'PatientDTO mdp'
+          type: string
+        tel:
+          title: tel
+          description: 'PatientDTO tel'
+          type: integer
+      type: object
+    PraticienDTO:
+      title: 'Le PraticientDTO'
+      description: 'Le PraticientDTO'
+      required:
+        - nom
+        - prenom
+        - etablissements
+        - specialites
+        - mail
+        - mdp
+        - tel
+      properties:
+        id:
+          type: integer
+          format: int64
+        nom:
+          title: nom
+          description: 'PraticienDTO nom'
+          type: string
+        prenom:
+          title: prenom
+          description: 'PraticienDTO prenom'
+          type: string
+        etablissements:
+          title: etablissements
+          description: 'PraticienDTO etablissements'
+        specialites:
+          title: spcecialites
+          description: 'PraticienDTO spcecialites'
+        mail:
+          title: mail
+          description: 'PraticienDTO mail'
+          type: string
+        mdp:
+          title: mdp
+          description: 'PraticienDTO mdp'
+          type: string
+        tel:
+          title: tel
+          description: 'PraticienDTO tel'
+          type: integer
       type: object
     SpecialiteDTO:
       title: 'La SpecialitetDTO'

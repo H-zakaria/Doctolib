@@ -2,10 +2,29 @@
 
 namespace App\DTO;
 
+
+/** 
+ * @OA\Schema(
+ *     description="Le PatientDTO",
+ *     title="Le PatientDTO",
+ *     required={"id", "dateTime", "praticienDTO", "patientDTO"},
+ * )
+ */
 class RdvDTO
 {
-
+  /**
+   * @OA\Property(format="int64")
+   * @var int
+   */
   private $id;
+
+  /**
+   * @OA\Property(
+   *     description="PraticienDTO dateTime",
+   *     title="dateTime",
+   * )
+   * @var string
+   */
   private $dateTime;
   private $praticienDTO;
   private $patientDTO;
