@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use OpenApi\Annotations as OA;
 use App\Repository\PatientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
