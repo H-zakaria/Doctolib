@@ -2,24 +2,41 @@
 
 namespace App\Service;
 
-use App\Entity\Praticien;
-use App\Entity\Patient;
-use App\Entity\Rdv;
-use App\Repository\RdvRepository;
 use DateTime;
+use App\Entity\Rdv;
+use App\DTO\PatientDTO;
+use App\Entity\Patient;
+use App\Entity\Praticien;
+use App\Mapper\RdvMapper;
+use App\Repository\PatientRepository;
+use App\Repository\RdvRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class RdvService
 {
   private $em;
   private $rep;
+  private $patientRep;
 
-  public function __construct(EntityManagerInterface $em, RdvRepository $rep)
+  public function __construct(EntityManagerInterface $em, RdvRepository $rep, PatientRepository $patientRep)
   {
     $this->em = $em;
     $this->rep = $rep;
+    $this->patientRep = $patientRep;
   }
 
+  public function getAllRdvsOfOnePatient(Patient $patient)
+  {
+    $rdvs = $patient->getRdvs();
+    $rdvsDTOs = new ArrayCollection;
+    $rdvMapper = new RdvMapper;
+    foreach ($rdvs as $rdv) {
+      $rdvDTO = $rdvMapper->convertRdvEntityToRdvDTO($rdv);
+      $rdvsDTOs->add($rdvDTO);
+    }
+    return $rdvsDTOs;
+  }
   public function prendreRdv(Praticien $praticien, DateTime $dateTime, Patient $patient)
   {
     $rdv = new Rdv;

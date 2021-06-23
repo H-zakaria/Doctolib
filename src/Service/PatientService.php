@@ -51,15 +51,14 @@ class PatientService
       return true;
     }
   }
-  public function modifyPatient(PatientDTO $pDTO)
+  public function modifyPatient(PatientDTO $pDTO, Patient $toAlter)
   {
-    $patient = (new PatientMapper)->convertPatientDTOToPatientEntity($pDTO);
-    $this->em->persist($patient);
+
+    $alteredPatient = (new PatientMapper)->convertPatientDTOToPatientEntity($pDTO, $toAlter);
+    $old = $this->patientRepository->find($alteredPatient->getId());
+    $old = $alteredPatient;
+    $this->em->persist($old);
     $this->em->flush();
-    if (!$this->patientRepository->find($patient)) {
-      return false;
-    } else {
-      return true;
-    }
+    return true;
   }
 }
