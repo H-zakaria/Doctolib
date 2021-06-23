@@ -30,6 +30,7 @@ class PatientService
     }
     return $patientDTOs;
   }
+
   public function getById(Patient $patient)
   {
     $pat = $this->patientRepository->find($patient);
@@ -60,5 +61,11 @@ class PatientService
     $this->em->persist($old);
     $this->em->flush();
     return true;
+  }
+
+  public function deletePatient(Patient $patient)
+  {
+    $this->em->remove($patient);
+    $this->em->flush();
   }
 }

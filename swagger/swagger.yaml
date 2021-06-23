@@ -3,11 +3,38 @@ paths:
   '/patients/{id}':
     get:
       operationId: getById
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of patient to return'
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '404':
           description: 'Patient was not found'
         '200':
           description: 'Patient was found'
+    delete:
+      summary: 'Deletes a patient'
+      description: ''
+      operationId: deletePatients
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Patient id to delete'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '404':
+          description: 'patient not found'
+        '200':
+          description: 'patient successful deletion'
   /patients:
     post:
       operationId: createPatient
@@ -41,11 +68,3 @@ components:
           description: 'Patient id'
           type: integer
       type: object
-  requestBodies:
-    patients:
-      description: 'post bref'
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PatientDTO'
